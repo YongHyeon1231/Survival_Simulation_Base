@@ -8,15 +8,17 @@ public class P_Movement : MonoBehaviour
     public float moveSpeed = 5.0f;
 
     [Space(20f)]
-    
+
     [Header("#Mouse Rotation")]
     public LayerMask groundLayer;
     public float rotationSpeed = 10.0f;
 
     private CharacterController controller;
+    private Animator animator;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -42,6 +44,9 @@ public class P_Movement : MonoBehaviour
         Vector3 moveDirection = cameraForward * vertical + cameraRight * horizontal;
 
         controller.Move(moveDirection * moveSpeed * Time.deltaTime);
+
+        float currentSpeed = moveDirection.magnitude * moveSpeed;
+        animator.SetFloat("a_Speed", currentSpeed);
     }
 
     void RotateTowardsMouse() // 마우스 위치로 캐릭터를 회전시키는 함수
