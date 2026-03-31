@@ -147,6 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6222944924372804644}
   - component: {fileID: 4201060315701201464}
+  - component: {fileID: -7798781897027576133}
   m_Layer: 5
   m_Name: '''F''Key'
   m_TagString: Untagged
@@ -197,6 +198,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7798781897027576133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5430058181129765345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0742f16b86e3794ba9f1a01f38f17f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_Animation_Handler
 --- !u!1 &6069844462994458394
 GameObject:
   m_ObjectHideFlags: 0

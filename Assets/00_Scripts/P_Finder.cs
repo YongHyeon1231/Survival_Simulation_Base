@@ -36,7 +36,7 @@ public class P_Finder : MonoBehaviour
         {
             if (!currentObjects.Contains(iconEntry.Key))
             {
-                Destroy(iconEntry.Value);
+                iconEntry.Value.GetComponent<UI_Animation_Handler>().AnimationChange("Out");
                 toRemove.Add(iconEntry.Key);
             }
         }
