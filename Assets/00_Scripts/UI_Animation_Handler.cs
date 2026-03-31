@@ -16,5 +16,5 @@ public class UI_Animation_Handler : MonoBehaviour
 
     public void Deactive() => gameObject.SetActive(false);
 
-    public void DestroyObj() => Destroy(gameObject);
+    public void Destroy_Object() => Destroy(gameObject);
 }

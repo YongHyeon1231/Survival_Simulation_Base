@@ -16,7 +16,8 @@ public class P_Finder : MonoBehaviour
     {
         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, checkRadius, interactableLayer);
 
-        HashSet<Transform> currentObjects = new HashSet<Transform>(); // 중복되지 않은 변수
+        Transform closetObject = null;
+        float closetDistance = Mathf.Infinity;
 
         foreach(Collider obj in nearbyObjects)
         {
@@ -24,24 +25,36 @@ public class P_Finder : MonoBehaviour
 
             float distance = Vector3.Distance(transform.position, targetTransform.position);
 
-            if(distance <= activationDistance)
+            if(distance <= activationDistance && distance < closetDistance)
             {
-                ShowIcon(targetTransform);
-                currentObjects.Add(targetTransform);
+                closetObject = targetTransform;
+                closetDistance = distance;
+            }
+        }
+
+        if (closetObject != null)
+        {
+            ShowIcon(closetObject);
+
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                Debug.Log("오브젝트 상호작용!");
             }
         }
 
         List<Transform> toRemove = new List<Transform>();
         foreach(var iconEntry in activeIcons)
         {
-            if (!currentObjects.Contains(iconEntry.Key))
+            if(iconEntry.Key != closetObject)
             {
                 iconEntry.Value.GetComponent<UI_Animation_Handler>().AnimationChange("Out");
                 toRemove.Add(iconEntry.Key);
             }
         }
-
-        foreach(var transformToRemove in toRemove) activeIcons.Remove(transformToRemove);
+        foreach(var transformToRemove in toRemove)
+        {
+            activeIcons.Remove(transformToRemove);
+        }
     }
 
     private void ShowIcon(Transform targetTransform) 
