@@ -12,11 +12,12 @@ public class P_Finder : MonoBehaviour
 
     private Dictionary<Transform, GameObject> activeIcons = new Dictionary<Transform, GameObject>();
     private Transform closetObject;
-    private bool OnInteraction = false;
+    [HideInInspector]public bool OnInteraction = false;
 
     private void Start()
     {
         Delegate_Holder.OnInteraction += OnInteractionVoid;
+        Delegate_Holder.OnInteractionOut += OnInteractionOut;
     }
 
     private void OnInteractionVoid()
@@ -25,6 +26,14 @@ public class P_Finder : MonoBehaviour
         closetObject = null;
         IconInit();
     }
+
+    private void OnInteractionOut()
+    {
+        Invoke("InteractionFalse", 1.0f);
+        activeIcons.Clear();
+    }
+
+    private void InteractionFalse() => OnInteraction = false;
 
     private void Update()
     {
