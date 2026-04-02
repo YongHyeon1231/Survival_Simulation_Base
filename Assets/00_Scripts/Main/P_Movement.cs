@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class P_Movement : MonoBehaviour
 {
+    public static P_Movement instance = null;
+
     [Header("#Movement Settings")]
     public float moveSpeed = 5.0f;
 
@@ -17,12 +19,24 @@ public class P_Movement : MonoBehaviour
     private Animator animator;
     private P_Finder Finder;
 
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+    }
+
+    public void AnimationChange(string temp)
+    {
+        animator.SetTrigger(temp);
+    }
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         Finder = GetComponent<P_Finder>();
+
+        Delegate_Holder.OnInteraction += () => animator.SetBool("NoneInteraction", true);
+        Delegate_Holder.OnInteractionOut += () => animator.SetBool("NoneInteraction", false);
     }
 
     private void Update()
