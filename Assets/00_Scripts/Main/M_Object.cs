@@ -18,6 +18,7 @@ public class M_Object : MonoBehaviour
         if(HP <= 0)
         {
             HP = 0;
+            Particle_Handler.instance.OnParticle(transform.GetChild(0).GetComponent<MeshRenderer>());
             Destroy(this.gameObject);
             Delegate_Holder.OnOutInteraction();
             return;

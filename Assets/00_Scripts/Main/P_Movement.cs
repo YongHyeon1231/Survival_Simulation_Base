@@ -35,7 +35,11 @@ public class P_Movement : MonoBehaviour
         animator = GetComponent<Animator>();
         Finder = GetComponent<P_Finder>();
 
-        Delegate_Holder.OnInteraction += () => animator.SetBool("NoneInteraction", true);
+        Delegate_Holder.OnInteraction += () => 
+        {
+            animator.SetBool("NoneInteraction", true);
+            animator.SetFloat("a_Speed", 0.0f);
+        };
         Delegate_Holder.OnInteractionOut += () => animator.SetBool("NoneInteraction", false);
     }
 
