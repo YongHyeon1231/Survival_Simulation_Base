@@ -25,8 +25,9 @@ public class Canvas_Holder : MonoBehaviour
     public void GetBoard()
     {
         Board.SetActive(true);
-        BoardHpFill.fillAmount = 1.0f;
-        BoardHpWhiteFill.fillAmount = 1.0f;
+        // BoardHpFill.fillAmount = 1.0f;
+        // BoardHpWhiteFill.fillAmount = 1.0f;
+        // 해당 코드가 있으면 오브젝트에 접근할때 남아있는 체력바가 처음에 최대치로 채워져 있는 것처럼 보임.
     }
 
     public void BoardOut() => Board.GetComponent<UI_Animation_Handler>().AnimationChange("Out");

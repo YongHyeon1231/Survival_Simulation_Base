@@ -47,7 +47,7 @@ public class P_Movement : MonoBehaviour
     {
         if(Finder.OnInteraction)
         {
-            if(Input.anyKeyDown)
+            if(Input.anyKeyDown && !Input.GetKeyDown(KeyCode.F))
             {
                 Delegate_Holder.OnOutInteraction();
             }

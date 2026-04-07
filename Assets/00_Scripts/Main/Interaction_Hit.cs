@@ -11,6 +11,7 @@ public class Interaction_Hit :  M_Object
     private void Start()
     {
         originalRotation = transform.rotation;
+        HP = m_Data.HP;
     }
 
     public override void Interaction()
@@ -19,9 +20,9 @@ public class Interaction_Hit :  M_Object
         base.Interaction();
     }
 
-    public override void HP_Init()
+    public override void OnHit()
     {
-        base.HP_Init();
+        base.OnHit();
         ShakeTree(transform.position - P_Movement.instance.transform.position);
     }
 

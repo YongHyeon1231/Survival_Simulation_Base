@@ -8,12 +8,15 @@ public class P_Handler : MonoBehaviour
     public void Hit()
     {
         m_Object.HP -= 20;
+
         Vector3 pos = new Vector3(
             m_Object.transform.position.x + Random.Range(-0.5f, 0.5f),
             m_Object.transform.position.y + 1.5f,
             m_Object.transform.position.z + Random.Range(-0.5f, 0.5f)
             );
+            
         Instantiate(HitParticle, pos, Quaternion.identity);
-        m_Object.HP_Init();
+
+        m_Object.OnHit();
     }
 }

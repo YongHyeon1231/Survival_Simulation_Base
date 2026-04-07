@@ -9,8 +9,13 @@ public class M_Object : MonoBehaviour
     public virtual void Interaction()
     {
         P_Handler.m_Object = this;
-        HP = m_Data.HP;
         GetInteraction = true;
+        HP_Init();
+    }
+
+    public virtual void OnHit()
+    {
+        HP_Init();
     }
 
     public virtual void HP_Init()
