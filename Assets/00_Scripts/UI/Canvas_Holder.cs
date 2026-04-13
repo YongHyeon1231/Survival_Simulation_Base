@@ -8,7 +8,7 @@ public class Canvas_Holder : MonoBehaviour
     public static Canvas_Holder instance = null;
 
     [SerializeField] private GameObject Board;
-    [SerializeField] private Image BoardHpFill, BoardHpWhiteFill;
+    public Image BoardHpFill, BoardHpWhiteFill;
     Coroutine F_Coroutine;
 
     private void Awake()
@@ -31,6 +31,8 @@ public class Canvas_Holder : MonoBehaviour
     }
 
     public void BoardOut() => Board.GetComponent<UI_Animation_Handler>().AnimationChange("Out");
+
+    public void AllStopCoroutine() => StopAllCoroutines();
 
     public void BoardFill(float hp, float maxHp)
     {

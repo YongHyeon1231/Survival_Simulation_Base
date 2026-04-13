@@ -6,6 +6,8 @@ public class M_Object : MonoBehaviour
     public bool GetInteraction = false;
 
     public int HP;
+    public Item item_Prefab;
+    
     public virtual void Interaction()
     {
         P_Handler.m_Object = this;
@@ -24,6 +26,8 @@ public class M_Object : MonoBehaviour
         {
             HP = 0;
             Particle_Handler.instance.OnParticle(transform.GetChild(0).GetComponent<MeshRenderer>());
+            Canvas_Holder.instance.AllStopCoroutine();
+            Canvas_Holder.instance.BoardHpWhiteFill.fillAmount = 1.0f;
             Destroy(this.gameObject);
             Delegate_Holder.OnOutInteraction();
             return;

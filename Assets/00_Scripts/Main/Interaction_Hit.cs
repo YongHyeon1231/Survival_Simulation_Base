@@ -24,6 +24,14 @@ public class Interaction_Hit :  M_Object
     {
         base.OnHit();
         ShakeTree(transform.position - P_Movement.instance.transform.position);
+
+        if(HP <= 0 )
+        {
+            for(int i = 0; i <5; i++)
+            {
+                Instantiate(item_Prefab, transform.position, Quaternion.identity);
+            }
+        }
     }
 
     private void ShakeTree(Vector3 attackDirection)

@@ -4928,7 +4928,7 @@ GameObject:
   - component: {fileID: 7067563944813540665}
   - component: {fileID: 8128107839358354376}
   m_Layer: 0
-  m_Name: Hit
+  m_Name: Item_Get
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
