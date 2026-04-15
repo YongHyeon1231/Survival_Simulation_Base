@@ -6,7 +6,7 @@ public class Game_Mng : MonoBehaviour
 
     private void Awake()
     {
-        if (instance = null) instance = this;
+        if (instance == null) instance = this;
     }
 
     
