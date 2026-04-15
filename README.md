@@ -10,6 +10,7 @@ Particle
 
 ### 폴더 구조
 
+```
 Assets/00_Scripts/
 ├── Main/
 │   ├── Cam_Movement.cs          MonoBehaviour
@@ -32,11 +33,13 @@ Assets/00_Scripts/
 │   ├── Canvas_Holder.cs         MonoBehaviour  싱글턴
 │   └── UI_Animation_Handler.cs  MonoBehaviour
 └── Particle_Handler.cs          MonoBehaviour  싱글턴
+```
 
 ---
 
 ### 클래스 계층
 
+```
 MonoBehaviour
 ├── Cam_Movement          카메라 Lerp 추적
 ├── M_Object              ★ 채집 오브젝트 베이스 (HP, 파괴, UI 연동)
@@ -59,11 +62,13 @@ ScriptableObject
 ├── Asset_Mng             SpriteAtlas 정적 로더
 ├── ItemFlowController    확률 기반 드롭 아이템 결정
 └── ITEMLIST              드롭 항목 데이터 (Item_Scriptable + 확률)
+```
 
 ---
 
 ### 핵심 이벤트 흐름
 
+```
 [F키]
 P_Finder → M_Object.Interaction()
   → P_Handler.m_Object 지정
@@ -86,15 +91,7 @@ P_Handler.Hit()
               ├─ P_Movement: 이동 잠금 해제
               ├─ Canvas_Holder: HUD 숨김
               └─ P_Finder: 탐지 재개
-
----
-
-### 버그
-
-Game_Mng.cs 싱글턴 조건에 = (대입) 사용 → 항상 null로 덮어씀.
-
-  [현재] if (instance = null)
-  [수정] if (instance == null)
+```
 
 ---
 
