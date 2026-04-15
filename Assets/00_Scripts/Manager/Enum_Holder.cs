@@ -18,8 +18,8 @@ public enum Item_Type
 public enum Rarity
 {
     Common,
-    Uncommon,
+    UnCommon,
     Rare,
-    Epic,
+    Hero,
     Legendary
 }

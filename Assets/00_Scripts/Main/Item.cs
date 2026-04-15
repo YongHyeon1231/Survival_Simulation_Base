@@ -10,6 +10,13 @@ public class Item : MonoBehaviour
 
     Transform player;
 
+    Item_Scriptable m_Data;
+
+    public void Init(Item_Scriptable data)
+    {
+        this.m_Data = data;
+    }
+
     private void Start()
     {
         player = P_Movement.instance.transform;
@@ -71,6 +78,7 @@ public class Item : MonoBehaviour
         }
 
         Instantiate(GetParticle, transform.position, Quaternion.identity);
+        Navigation_Mng.instance.PanelGet_Item(m_Data);
         Destroy(this.gameObject);
     }
 }
