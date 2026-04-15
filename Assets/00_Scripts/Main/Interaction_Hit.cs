@@ -27,9 +27,11 @@ public class Interaction_Hit :  M_Object
 
         if(HP <= 0 )
         {
-            for(int i = 0; i <5; i++)
+            var items = ItemFlowController.DROPITEMLIST(m_Data.Drop_Items);
+            for(int i = 0; i < items.Count; i++)
             {
                 Instantiate(item_Prefab, transform.position, Quaternion.identity);
+                Debug.Log(items[i].ItemID + " : " + items[i].ItemName + " : " + items[i].Description + " : " + items[i].Type + " : " + items[i].rarity);
             }
         }
     }

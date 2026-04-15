@@ -18,7 +18,9 @@ public class Item : MonoBehaviour
 
     IEnumerator SpreadAndMoveToPlayer() // 오브젝트 주변으로 퍼지는 코루틴
     {
-        Vector3 spreadDirection = Random.insideUnitCircle * spreadRadius;
+        // insideUnitCircle은 2D 평면에서 반지름이 1인 원 안의 랜덤한 점을 반환
+        // insideUnitSphere는 3D 공간에서 반지름이 1인 구 안의 랜덤한 점을 반환
+        Vector3 spreadDirection = Random.insideUnitSphere * spreadRadius; 
         Vector3 spreadPosition = transform.position + spreadDirection;
 
         spreadPosition.y = Mathf.Max(spreadPosition.y, arcHeight); // 아이템이 땅에 묻히지 않도록 y값을 최소 5.0f로 설정

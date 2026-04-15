@@ -5,7 +5,7 @@ public class Cam_Movement : MonoBehaviour
     [SerializeField] private Transform player;
 
     [SerializeField] private float PosX = 0.0f;
-    [SerializeField] private float PosY = 10.0f;
+    [SerializeField] private float PosY = 15.0f;
     [SerializeField] private float PosZ = -10.0f;
 
     [SerializeField] private float m_Speed = 2.0f;
