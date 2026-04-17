@@ -10,3 +10,10 @@ public class Item_Scriptable : ScriptableObject
     public Rarity rarity;
     public float Weight;
 }
+
+[System.Serializable]
+public class ITEM
+{
+    public Item_Scriptable Data;
+    public int Count;
+}

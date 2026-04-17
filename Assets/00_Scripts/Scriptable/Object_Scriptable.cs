@@ -8,6 +8,9 @@ public class ITEMLIST
 
     [Range(0.0f, 100.0f)]
     public float value; // drop 확률
+
+    [Range(0, 100)]
+    public int Maximum; // 최대 드랍 개수
 }
 
 [CreateAssetMenu(fileName = "Object_Scriptable", menuName = "Scriptable Objects/Object_Scriptable")]

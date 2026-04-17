@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 38319403}
   - component: {fileID: 38319402}
   m_Layer: 5
-  m_Name: Weight_Text
+  m_Name: ItemWeightText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -363,9 +363,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2090688792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 750, y: -50}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &57456908
@@ -479,13 +479,14 @@ GameObject:
   - component: {fileID: 88865197}
   - component: {fileID: 88865199}
   - component: {fileID: 88865198}
+  - component: {fileID: 88865200}
   m_Layer: 5
   m_Name: ITEM_PANEL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &88865197
 RectTransform:
   m_ObjectHideFlags: 0
@@ -501,10 +502,10 @@ RectTransform:
   - {fileID: 1741273350}
   m_Father: {fileID: 1114500569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 560, y: -110}
+  m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &88865198
 MonoBehaviour:
@@ -544,6 +545,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88865196}
   m_CullTransparentMesh: 1
+--- !u!114 &88865200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88865196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5023ae20c94ce874fad52d36679cdb88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item_Panel
+  m_Item:
+    Data: {fileID: 0}
+    Count: 0
+  m_ITEMPANEL: {fileID: 1741273349}
+  Rarity: {fileID: 88865198}
+  Item_Icon: {fileID: 192197859}
+  ItemCountText: {fileID: 687217667}
+  ItemWeightText: {fileID: 38319402}
 --- !u!1 &180815043
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +661,42 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!1 &186481422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 186481423}
+  m_Layer: 5
+  m_Name: '##UIPARTPARENT##'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &186481423
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186481422}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 491084118}
+  m_Father: {fileID: 888439376}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &187348976
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +788,7 @@ GameObject:
   - component: {fileID: 192197860}
   - component: {fileID: 192197859}
   m_Layer: 5
-  m_Name: Item_Image
+  m_Name: Item_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1346,13 +1403,14 @@ GameObject:
   - component: {fileID: 491084118}
   - component: {fileID: 491084120}
   - component: {fileID: 491084119}
+  - component: {fileID: 491084121}
   m_Layer: 5
-  m_Name: Inventory
+  m_Name: INVENTORY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &491084118
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1360,18 +1418,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491084117}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 180815044}
-  m_Father: {fileID: 888439376}
+  m_Father: {fileID: 186481423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 2460, y: 1340}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &491084119
 MonoBehaviour:
@@ -1411,6 +1469,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491084117}
   m_CullTransparentMesh: 1
+--- !u!114 &491084121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491084117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65b73337d94f4448859d0ec376f43ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::INVENTORY
+  Item_Panel: {fileID: 88865200}
+  Content: {fileID: 1114500569}
 --- !u!1 &533107382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1639,7 +1711,7 @@ GameObject:
   - component: {fileID: 687217668}
   - component: {fileID: 687217667}
   m_Layer: 5
-  m_Name: Object_Count
+  m_Name: ItemCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1991,9 +2063,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2090688792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1050, y: -50}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &784503337
@@ -2240,9 +2312,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 186481423}
   - {fileID: 288922654}
   - {fileID: 1847721781}
-  - {fileID: 491084118}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2262,8 +2334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317c1b37d831b484d895c64372153c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Canvas_Holder
+  UI_PART_PARENT: {fileID: 186481423}
   Board: {fileID: 288922653}
-  InventoryPanel: {fileID: 491084117}
   BoardHpFill: {fileID: 738496085}
   BoardHpWhiteFill: {fileID: 1083918453}
 --- !u!1 &898641777
@@ -2610,7 +2682,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00068336836, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1114500570
 MonoBehaviour:
@@ -2849,9 +2921,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2090688792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 450, y: -50}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1182171410
@@ -2986,9 +3058,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2090688792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -50}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1190428742
@@ -8843,7 +8915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1741273350
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9479,7 +9551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ScrollRect
   m_Content: {fileID: 1114500569}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
