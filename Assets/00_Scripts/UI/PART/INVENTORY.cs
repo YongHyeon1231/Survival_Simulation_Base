@@ -1,22 +1,27 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class INVENTORY : UIPART
 {
     public Item_Panel Item_Panel;
     public Transform Content;
 
+    public Image WeightFill;
+    public TextMeshProUGUI weightText;
+
     List<Item_Panel> items = new List<Item_Panel>();
+    Dictionary<int, ITEM> Inventory_Items = new Dictionary<int, ITEM>();
     int ItemMaximumValue = 50;
+
+    public GameObject ItemClickTap;
 
     private void Start()
     {
         Init();
-    }
-
-    private void OnEnable()
-    {
-        SetInventory();
+        ItemFlowController.OnItemGet += SetItemList;
+        ItemFlowController.OnItemGet += SetInventory;
     }
 
     public void Init()
@@ -32,14 +37,22 @@ public class INVENTORY : UIPART
             go.gameObject.SetActive(true);
             items.Add(go);
         }
+        SetItemList();
+        SetInventory();
+    }
 
+    public void SetItemList()
+    {
         int value = 0;
         foreach (var item in ItemFlowController.Item_Pairs)
         {
-            items[value].Init(item.Value);
+            if(Inventory_Items.ContainsKey(item.Value.Data.ItemID) == false && items[value].parentPanel == null)
+            {
+                items[value].Init(item.Value, this);
+                Inventory_Items.Add(item.Value.Data.ItemID, item.Value);
+            }
             value++;
         }
-        SetInventory();
     }
 
     public void SetInventory()
@@ -48,5 +61,15 @@ public class INVENTORY : UIPART
         {
             items[i].SetItem();
         }
+
+        WeightFill.fillAmount = ItemFlowController.Weight() / ItemFlowController.Player_Weight;
+        weightText.text = string.Format("({0:0.0}/{1:0.0})", ItemFlowController.Weight(), ItemFlowController.Player_Weight);
+    }
+
+    public void SetItemClickAnimation(Item_Panel panel)
+    {
+        ItemClickTap.gameObject.SetActive(true);
+        ItemClickTap.transform.SetParent(panel.transform);
+        ItemClickTap.transform.localPosition = Vector2.zero;
     }
 }
