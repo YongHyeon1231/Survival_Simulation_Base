@@ -8,6 +8,7 @@ public class Canvas_Holder : MonoBehaviour
     public static Canvas_Holder instance = null;
 
     [SerializeField] private GameObject Board;
+    [SerializeField] private GameObject InventoryPanel;
     public Image BoardHpFill, BoardHpWhiteFill;
     Coroutine F_Coroutine;
 
@@ -20,6 +21,14 @@ public class Canvas_Holder : MonoBehaviour
     {
         Delegate_Holder.OnInteraction += GetBoard;
         Delegate_Holder.OnInteractionOut += BoardOut;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            InventoryPanel.SetActive(!InventoryPanel.activeSelf);
+        }
     }
 
     public void GetBoard()
