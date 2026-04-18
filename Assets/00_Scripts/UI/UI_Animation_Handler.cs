@@ -4,10 +4,15 @@ public class UI_Animation_Handler : MonoBehaviour
 {
     private Animator animator;
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }
+
+    // private void Start()
+    // {
+    //     animator = GetComponent<Animator>();
+    // }
 
     public void AnimationChange(string temp)
     {

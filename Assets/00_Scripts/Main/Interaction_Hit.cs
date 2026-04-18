@@ -17,6 +17,7 @@ public class Interaction_Hit :  M_Object
     public override void Interaction()
     {
         P_Movement.instance.AnimationChange(m_Data.m_Type.ToString());
+        P_Movement.instance.EquipmentChange(m_Data.m_Type, true);
         base.Interaction();
     }
 

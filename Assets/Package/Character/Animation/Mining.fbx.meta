@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: b603cd9f7a4bca74281821e335157aa2
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -35,7 +35,7 @@ ModelImporter:
       takeName: A_worker_lvl_01_Mining_02
       internalID: -8563933113787661426
       firstFrame: 0
-      lastFrame: 40
+      lastFrame: 35.2
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -55,7 +55,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.42581847
+      - time: 0.41499597
         functionName: Hit
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -92,6 +92,9 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8

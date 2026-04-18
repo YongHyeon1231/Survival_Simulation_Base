@@ -7,6 +7,8 @@ public class P_Handler : MonoBehaviour
 
     public void Hit()
     {
+        if (m_Object == null) return;
+        
         m_Object.HP -= 20;
 
         Vector3 pos = new Vector3(

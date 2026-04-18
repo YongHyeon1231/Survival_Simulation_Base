@@ -15,6 +15,8 @@ public class P_Movement : MonoBehaviour
     public LayerMask groundLayer;
     public float rotationSpeed = 10.0f;
 
+    [SerializeField] private GameObject[] Equipments;
+
     private CharacterController controller;
     private Animator animator;
     private P_Finder Finder;
@@ -27,6 +29,19 @@ public class P_Movement : MonoBehaviour
     public void AnimationChange(string temp)
     {
         animator.SetTrigger(temp);
+    }
+
+    public void EquipmentChange(Object_Type type, bool Active)
+    {
+        Equipments[(int)type].SetActive(Active);
+    }
+
+    public void EquipmentAllDeactive()
+    {
+        for(int i = 0; i < Equipments.Length; i++)
+        {
+            Equipments[i].SetActive(false);
+        }
     }
 
     private void Start()

@@ -31,6 +31,8 @@ public class P_Finder : MonoBehaviour
     private void OnInteractionOut()
     {
         OnInteraction = false;
+        P_Movement.instance.EquipmentAllDeactive();
+        foreach (var icon in activeIcons.Values) Destroy(icon);
         activeIcons.Clear();
     }
 
@@ -78,7 +80,11 @@ public class P_Finder : MonoBehaviour
         {
             if(iconEntry.Key != closetObject)
             {
-                iconEntry.Value.GetComponent<UI_Animation_Handler>().AnimationChange("Out");
+                // iconEntry.Value.GetComponent<UI_Animation_Handler>().AnimationChange("Out");
+                // toRemove.Add(iconEntry.Key);
+                var handler = iconEntry.Value.GetComponent<UI_Animation_Handler>();
+                handler.AnimationChange("Out");
+                // Destroy(iconEntry.Value, 1.0f);
                 toRemove.Add(iconEntry.Key);
             }
         }
