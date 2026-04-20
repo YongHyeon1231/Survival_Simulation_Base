@@ -20,6 +20,11 @@ public class UIPART : MonoBehaviour
             Debug.LogWarning($"{gameObject.name} is Not Active.");
             return;
         }
+        if (GetComponent<Animator>() != null)
+        {
+            GetComponent<Animator>().SetTrigger("Out");
+            return;
+        }
         gameObject.SetActive(false);
     }
 

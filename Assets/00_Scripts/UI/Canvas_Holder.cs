@@ -34,10 +34,8 @@ public class Canvas_Holder : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            uiParts["INVENTORY"].Toggle();
-        }
+        if(Input.GetKeyDown(KeyCode.I)) uiParts["INVENTORY"].Toggle();
+        if(Input.GetKeyDown(KeyCode.B)) uiParts["BUILDING"].Toggle();
     }
 
     public void OpenUI(string uiName)
