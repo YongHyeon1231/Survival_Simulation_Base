@@ -19,10 +19,10 @@ public class Navigation_Mng : MonoBehaviour
         P_Item.gameObject.SetActive(false);
     }
     
-    public void PanelGet_Item(Item_Scriptable data)
+    public void PanelGet_Item(Item_Scriptable data, int count)
     {
         var go = Instantiate(P_Item, Content);
         go.gameObject.SetActive(true);
-        go.Init(data);
+        go.Init(data, count);
     }
 }

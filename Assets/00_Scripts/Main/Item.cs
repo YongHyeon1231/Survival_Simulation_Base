@@ -78,7 +78,7 @@ public class Item : MonoBehaviour
         }
 
         Instantiate(GetParticle, transform.position, Quaternion.identity);
-        Navigation_Mng.instance.PanelGet_Item(m_ITEM.Data);
+        Navigation_Mng.instance.PanelGet_Item(m_ITEM.Data, m_ITEM.Count);
         ItemFlowController.GETITEM(m_ITEM.Data, m_ITEM.Count);
         Destroy(this.gameObject);
     }
