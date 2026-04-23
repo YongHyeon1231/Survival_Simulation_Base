@@ -16,6 +16,7 @@ MonoBehaviour:
   timer: 60
   m_Items:
   - Data: {fileID: 11400000, guid: 47335b7de199ce044badae3255f1c50d, type: 2}
-    Count: 3
+    Count: 1
   - Data: {fileID: 11400000, guid: 4dd52d7ab51c79e4eb28292372cdc3ca, type: 2}
-    Count: 5
+    Count: 1
+  obj: {fileID: 1376575576917828423, guid: bed20cc60efb5c447b168d3bdcfce2d6, type: 3}

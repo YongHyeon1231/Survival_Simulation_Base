@@ -7,4 +7,6 @@ public class Building_Scriptable : ScriptableObject
     public string Name;
     public float timer;
     public List<ITEM> m_Items = new List<ITEM>();
+
+    public Building_OBJ obj;
 }

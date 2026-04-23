@@ -20,6 +20,8 @@ public class BUILDING : UIPART
     [SerializeField] private GameObject Building_Item;
     [SerializeField] private Transform Item_Content;
     [SerializeField] private TextMeshProUGUI TimerText;
+    
+    private Building_Scriptable BuildingObj;
 
     private void Awake()
     {
@@ -33,9 +35,34 @@ public class BUILDING : UIPART
         SetBuilding();
     }
 
+    public void SetBuildObject()
+    {
+        bool CanBuild = true;
+        for(int i = 0; i <BuildingObj.m_Items.Count; i++)
+        {
+            ITEM item = BuildingObj.m_Items[i];
+            int itemID = item.Data.ItemID;
+            int inventoryItemCount = ItemFlowController.ItemCount(itemID);
+            if (inventoryItemCount < item.Count) // 인벤토리 아이템 수량 < 필요 아이템 수량
+            {
+                CanBuild = false;
+                break;
+            }
+        }
+
+        if(CanBuild == false) return;
+
+        Close();
+
+        Base_Mng.instance.Build.SetBuild(BuildingObj);
+
+    }
+
     // GetComponentInChildren 자식 오브젝트의 특정 컴포넌트를 추적
     public void GetItemsData(Building_Scriptable data)
     {
+        BuildingObj = data;
+
         if(Garvage.Count > 0)
         {
             for(int i = 0; i < Garvage.Count; i++)
@@ -52,19 +79,13 @@ public class BUILDING : UIPART
             go.transform.GetComponentInChildren<Image>().sprite = Asset_Mng.Get_Atlas(itemData.ItemID.ToString());
             
             var goText = go.transform.GetComponentInChildren<TextMeshProUGUI>();
-            bool have = ItemFlowController.HaveItem(itemData.ItemID);
             
             goText.text = 
                 string.Format("({0}/{1})", 
                 data.m_Items[i].Count,
-                have ? ItemFlowController.Item_Pairs[itemData.ItemID].Count : 0 );
+                ItemFlowController.ItemCount(itemData.ItemID));
 
-            bool MoreItem = false;
-            if (have)
-            {
-                if (ItemFlowController.Item_Pairs[itemData.ItemID].Count >= data.m_Items[i].Count) MoreItem = true;
-                else MoreItem = false;
-            }
+            bool MoreItem = ItemFlowController.ItemCount(itemData.ItemID) >= data.m_Items[i].Count;
 
             goText.color = MoreItem ? Color.green : Color.red;
 

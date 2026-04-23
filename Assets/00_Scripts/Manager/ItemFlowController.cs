@@ -58,6 +58,15 @@ public class ItemFlowController
         }
         return false;
     }
+
+    public static int ItemCount(int value)
+    {
+        if(Item_Pairs.ContainsKey(value))
+        {
+            return Item_Pairs[value].Count;
+        }
+        else return 0;
+    }
     
     public static float WeightItem(int key)
     {

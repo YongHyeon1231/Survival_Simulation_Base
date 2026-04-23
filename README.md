@@ -221,6 +221,31 @@ P_Handler.Hit()
 
 ---
 
+## Unity 지식 메모
+
+<details>
+<summary>자식 Collider의 충돌 이벤트를 부모 스크립트에서 받는 방법</summary>
+
+`OnTriggerStay`, `OnCollisionEnter` 등의 충돌 이벤트는 **Collider가 있는 오브젝트** 또는 **Rigidbody가 있는 오브젝트**에 전달된다.
+
+**문제 상황:**
+- 스크립트는 부모에 있고, Collider는 자식에 있을 때
+- Rigidbody가 없으면 이벤트가 자식에만 전달됨 → 부모 스크립트는 못 받음
+
+**해결:** 부모에 Rigidbody를 추가하면 자식 Collider의 충돌 이벤트가 부모로 올라옴.
+
+**Is Kinematic 활성화 이유:** Rigidbody 추가 시 중력/물리 연산이 켜져 오브젝트가 떨어지므로, 물리 이동이 필요 없는 오브젝트는 `Is Kinematic = true`로 설정.
+
+```
+이벤트 전달 기준:
+- Collider만 있는 경우 → Collider가 있는 오브젝트에 전달
+- 부모에 Rigidbody 있는 경우 → Rigidbody가 있는 부모에 전달 (자식 Collider 포함)
+```
+
+</details>
+
+---
+
 ## 개선 필요 항목
 
 <details>
