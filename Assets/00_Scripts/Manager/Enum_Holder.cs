@@ -1,3 +1,8 @@
+public enum Build_Type
+{
+    Portal
+}
+
 public enum Object_Type
 {
     None,

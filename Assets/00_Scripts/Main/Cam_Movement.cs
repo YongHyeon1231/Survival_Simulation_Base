@@ -23,6 +23,6 @@ public class Cam_Movement : MonoBehaviour
             player.position.z + PosZ
             ), m_Speed * Time.deltaTime);
 
-            transform.LookAt(player);
+            // transform.LookAt(player);
     }
 }

@@ -4,15 +4,18 @@ public class Building_Mng : MonoBehaviour
 {
     Camera cam;
     [SerializeField] private float rayDistance = 100.0f;
+    [SerializeField] private float rotationSpeed;
     [SerializeField] private LayerMask layer;
+
     [HideInInspector] public Building_OBJ BuildingObject;
 
     float ignoreTime = 0.3f;
     float timer;
 
-    public void SetBuild(Building_Scriptable m_Data)
+    public void SetBuild(Building_Scriptable Data)
     {
-        BuildingObject = Instantiate(m_Data.obj);
+        BuildingObject = Instantiate(Data.obj);
+        BuildingObject.m_Data = Data;
         BuildingObject.SetMaterial(Material_Type.Transparent);
         BuildingObject.SetTrigger(true);
         timer = Time.time + ignoreTime;
@@ -33,6 +36,12 @@ public class Building_Mng : MonoBehaviour
             BuildingObject.transform.position = hitInfo.point;
         }
 
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0)
+        {
+            BuildingObject.transform.Rotate(0.0f, scroll *rotationSpeed * Time.deltaTime, 0.0f);
+        }
+
         if(Time.time < timer) return;
 
         if(Input.GetMouseButtonUp(0))
@@ -46,6 +55,7 @@ public class Building_Mng : MonoBehaviour
     private void ConfirmPlacement()
     {
         BuildingObject.SetTrigger(false);
+        BuildingObject.Confirm();
         BuildingObject = null;
     }
 }
