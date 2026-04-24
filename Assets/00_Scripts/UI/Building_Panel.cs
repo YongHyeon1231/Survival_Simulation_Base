@@ -33,6 +33,8 @@ public class Building_Panel : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if(parentPanel == null) return;
         parentPanel.SetItemClickAnimation(this);
+
+        Canvas_Holder.instance.GetPopUp().Set_PopUp(String_Table.Building, m_Data.Key, eventData.position);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -42,12 +44,14 @@ public class Building_Panel : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             parentPanel.ItemClickTap.gameObject.SetActive(false);
         }
+
+        Canvas_Holder.instance.DestroyPopup();
     }
 
     public void SetData()
     {
         gameObject.SetActive(true);
-        m_Icon.sprite = Asset_Mng.Get_Atlas(m_Data.Name);
-        m_Text.text = Utils.Localization_text(String_Table.Building, m_Data.Name);
+        m_Icon.sprite = Asset_Mng.Get_Atlas(m_Data.Key);
+        m_Text.text = Utils.Localization_text(String_Table.Building, m_Data.Key);
     }
 }

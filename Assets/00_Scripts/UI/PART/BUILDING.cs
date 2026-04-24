@@ -41,8 +41,8 @@ public class BUILDING : UIPART
         for(int i = 0; i <BuildingObj.m_Items.Count; i++)
         {
             ITEM item = BuildingObj.m_Items[i];
-            int itemID = item.Data.ItemID;
-            int inventoryItemCount = ItemFlowController.ItemCount(itemID);
+            string itemKey = item.Data.Key;
+            int inventoryItemCount = ItemFlowController.ItemCount(itemKey);
             if (inventoryItemCount < item.Count) // 인벤토리 아이템 수량 < 필요 아이템 수량
             {
                 CanBuild = false;
@@ -76,16 +76,16 @@ public class BUILDING : UIPART
         {
             Item_Scriptable itemData = data.m_Items[i].Data;
             var go = Instantiate(Building_Item, Item_Content);
-            go.transform.GetComponentInChildren<Image>().sprite = Asset_Mng.Get_Atlas(itemData.ItemID.ToString());
+            go.transform.GetComponentInChildren<Image>().sprite = Asset_Mng.Get_Atlas(itemData.Key);
             
             var goText = go.transform.GetComponentInChildren<TextMeshProUGUI>();
             
             goText.text = 
                 string.Format("({0}/{1})", 
                 data.m_Items[i].Count,
-                ItemFlowController.ItemCount(itemData.ItemID));
+                ItemFlowController.ItemCount(itemData.Key));
 
-            bool MoreItem = ItemFlowController.ItemCount(itemData.ItemID) >= data.m_Items[i].Count;
+            bool MoreItem = ItemFlowController.ItemCount(itemData.Key) >= data.m_Items[i].Count;
 
             goText.color = MoreItem ? Color.green : Color.red;
 

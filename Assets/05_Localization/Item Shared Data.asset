@@ -47,6 +47,38 @@ MonoBehaviour:
     m_Key: Stone
     m_Metadata:
       m_Items: []
+  - m_Id: 72262381838336
+    m_Key: Wood.Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72421606006784
+    m_Key: Crystal.Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72480720527360
+    m_Key: Feather.Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72482326945792
+    m_Key: Leather.Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72482947702784
+    m_Key: Monster_Energy.Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72483497156608
+    m_Key: ThunderWood.Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72484868694016
+    m_Key: FireWood.Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72635209326592
+    m_Key: Stone.Value
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

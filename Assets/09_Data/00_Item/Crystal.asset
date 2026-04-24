@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5661684a434da40a7094d9e021ecc6, type: 3}
   m_Name: Crystal
   m_EditorClassIdentifier: Assembly-CSharp::Item_Scriptable
+  Key: Crystal
   ItemID: 10001
-  ItemName: Crystal
-  Description: "\uC601\uB871\uD55C \uBE5B\uC744 \uB0B4\uB294 \uBCF4\uC11D"
   Type: 3
   rarity: 4
   Weight: 2.3

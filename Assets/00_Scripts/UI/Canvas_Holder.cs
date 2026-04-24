@@ -14,10 +14,26 @@ public class Canvas_Holder : MonoBehaviour
     Coroutine F_Coroutine;
 
     private Dictionary<string, UIPART> uiParts = new Dictionary<string, UIPART>();
+    PopUP_Description popup;
+
 
     private void Awake()
     {
         if(instance == null) instance = this;
+    }
+
+    public void DestroyPopup()
+    {
+        if(popup != null) Destroy(popup.gameObject);
+    }
+
+    public PopUP_Description GetPopUp()
+    {
+        DestroyPopup();
+
+        popup = Instantiate(Resources.Load<PopUP_Description>("Prefab/PopUp"), transform);
+
+        return popup;
     }
 
     private void Start()
@@ -34,8 +50,19 @@ public class Canvas_Holder : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I)) uiParts["INVENTORY"].Toggle();
-        if(Input.GetKeyDown(KeyCode.B)) uiParts["BUILDING"].Toggle();
+        CheckUI(KeyCode.I, "INVENTORY");
+        CheckUI(KeyCode.B, "BUILDING");
+    }
+
+    private void CheckUI(KeyCode key, string uiName)
+    {
+        if(Input.GetKeyDown(key))
+        {
+            CloseAllUI(uiName);
+            DestroyPopup();
+
+            uiParts[uiName].Toggle();
+        }
     }
 
     public void OpenUI(string uiName)
@@ -58,11 +85,14 @@ public class Canvas_Holder : MonoBehaviour
         }
     }
 
-    public void CloseAllUI()
+    public void CloseAllUI(string name = "")
     {
-        foreach(var part in uiParts.Values)
+        foreach(var part in uiParts)
         {
-            part.Close();
+            if(part.Key != name)
+            {
+                part.Value.Close();
+            }
         }
     }
 

@@ -7,7 +7,7 @@ public delegate void onItemGet();
 public class ItemFlowController
 {
     public static event onItemGet OnItemGet;
-    public static Dictionary<int, ITEM> Item_Pairs = new Dictionary<int, ITEM>();
+    public static Dictionary<string, ITEM> Item_Pairs = new Dictionary<string, ITEM>();
     public static float Player_Weight = 2500.0f;
 
     public static List<ITEM> DROPITEMLIST(List<ITEMLIST> m_ItemList)
@@ -36,7 +36,7 @@ public class ItemFlowController
     {
         ITEM item = new ITEM { Data = scriptableData, Count = value };
 
-        int ID = item.Data.ItemID;
+        string ID = item.Data.Key;
 
         if(HaveItem(ID))
         {
@@ -50,7 +50,7 @@ public class ItemFlowController
         OnItemGet?.Invoke();
     }
 
-    public static bool HaveItem(int value)
+    public static bool HaveItem(string value)
     {
         if (Item_Pairs.ContainsKey(value))
         {
@@ -59,7 +59,7 @@ public class ItemFlowController
         return false;
     }
 
-    public static int ItemCount(int value)
+    public static int ItemCount(string value)
     {
         if(Item_Pairs.ContainsKey(value))
         {
@@ -68,7 +68,7 @@ public class ItemFlowController
         else return 0;
     }
     
-    public static float WeightItem(int key)
+    public static float WeightItem(string key)
     {
         if(HaveItem(key))
         {

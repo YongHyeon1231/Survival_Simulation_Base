@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592ee1e10db53654bba0a2b1a14065d8, type: 3}
   m_Name: Portal
   m_EditorClassIdentifier: Assembly-CSharp::Building_Scriptable
-  Name: Portal
+  Key: Portal
   timer: 10
   m_Items:
   - Data: {fileID: 11400000, guid: 47335b7de199ce044badae3255f1c50d, type: 2}

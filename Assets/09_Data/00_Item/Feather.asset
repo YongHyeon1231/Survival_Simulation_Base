@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5661684a434da40a7094d9e021ecc6, type: 3}
   m_Name: Feather
   m_EditorClassIdentifier: Assembly-CSharp::Item_Scriptable
+  Key: Feather
   ItemID: 10002
-  ItemName: Feather
-  Description: "\uB9E4\uC6B0 \uAC00\uBCBC\uC6CC\uBCF4\uC774\uB294 \uAE43\uD138"
   Type: 3
   rarity: 2
   Weight: 0.1

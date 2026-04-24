@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Building_Scriptable", menuName = "Scriptable Objects/Building_Scriptable")]
-public class Building_Scriptable : ScriptableObject
+public class Building_Scriptable : Scriptable_Base
 {
-    public string Name;
     public float timer;
     public List<ITEM> m_Items = new List<ITEM>();
 

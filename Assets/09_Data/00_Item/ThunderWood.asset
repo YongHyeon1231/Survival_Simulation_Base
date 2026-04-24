@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5661684a434da40a7094d9e021ecc6, type: 3}
   m_Name: ThunderWood
   m_EditorClassIdentifier: Assembly-CSharp::Item_Scriptable
+  Key: ThunderWood
   ItemID: 10023
-  ItemName: ThunderWood
-  Description: "\uC804\uB958\uAC00 \uD750\uB974\uB294 \uB4EF\uD55C \uC7A5\uC791"
   Type: 3
   rarity: 3
   Weight: 15

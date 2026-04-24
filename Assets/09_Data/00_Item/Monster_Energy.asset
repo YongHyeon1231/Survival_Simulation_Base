@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5661684a434da40a7094d9e021ecc6, type: 3}
   m_Name: Monster_Energy
   m_EditorClassIdentifier: Assembly-CSharp::Item_Scriptable
+  Key: Monster_Energy
   ItemID: 10005
-  ItemName: Monster_Energy
-  Description: "\uBAAC\uC2A4\uD130\uC758 \uB450\uB824\uC6C0\uC774 \uB290\uAEF4\uC9C0\uB294
-    \uC815\uC218"
   Type: 3
   rarity: 3
   Weight: 1.1

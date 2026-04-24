@@ -12,8 +12,14 @@ public class Nav_Item : MonoBehaviour
     public void Init(Item_Scriptable m_Data, int count)
     {
         Rarity_Image.sprite = Asset_Mng.Get_Atlas(m_Data.rarity.ToString());
-        Item_Icon_Image.sprite = Asset_Mng.Get_Atlas(m_Data.ItemID.ToString());
+        Item_Icon_Image.sprite = Asset_Mng.Get_Atlas(m_Data.Key);
 
-        Item_Name_Text.text = Utils.Localization_text(String_Table.Item, m_Data.ItemName) + "x" + count.ToString();
+        Item_Name_Text.text = Utils.Localization_text(String_Table.Item, m_Data.Key) + "x" + count.ToString();
+    }
+
+    public void Init_Building(Scriptable_Base m_Data, string key)
+    {
+        Item_Icon_Image.sprite = Asset_Mng.Get_Atlas(m_Data.Key);
+        Item_Name_Text.text = Utils.Localization_text(String_Table.UI, key);
     }
 }

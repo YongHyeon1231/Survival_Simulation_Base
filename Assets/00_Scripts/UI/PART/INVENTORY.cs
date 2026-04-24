@@ -12,7 +12,7 @@ public class INVENTORY : UIPART
     public TextMeshProUGUI weightText;
 
     List<Item_Panel> items = new List<Item_Panel>();
-    Dictionary<int, ITEM> Inventory_Items = new Dictionary<int, ITEM>();
+    Dictionary<string, ITEM> Inventory_Items = new Dictionary<string, ITEM>();
     int ItemMaximumValue = 50;
 
     public GameObject ItemClickTap;
@@ -46,10 +46,10 @@ public class INVENTORY : UIPART
         int value = 0;
         foreach (var item in ItemFlowController.Item_Pairs)
         {
-            if(Inventory_Items.ContainsKey(item.Value.Data.ItemID) == false && items[value].parentPanel == null)
+            if(Inventory_Items.ContainsKey(item.Value.Data.Key) == false && items[value].parentPanel == null)
             {
                 items[value].Init(item.Value, this);
-                Inventory_Items.Add(item.Value.Data.ItemID, item.Value);
+                Inventory_Items.Add(item.Value.Data.Key, item.Value);
             }
             value++;
         }

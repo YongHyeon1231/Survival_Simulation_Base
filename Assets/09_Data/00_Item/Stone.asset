@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5661684a434da40a7094d9e021ecc6, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: Assembly-CSharp::Item_Scriptable
+  Key: Stone
   ItemID: 10006
-  ItemName: Stone
-  Description: "\uB2E8\uB2E8\uD558\uC9C0 \uBABB\uD55C \uBC14\uC704"
   Type: 3
   rarity: 0
   Weight: 10.2

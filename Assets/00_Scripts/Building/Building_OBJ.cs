@@ -47,9 +47,10 @@ public class Building_OBJ : MonoBehaviour
         P.eulerAngles = new Vector3(55.0f, P.eulerAngles.y - transform.eulerAngles.y, 0.0f);
 
         Board.SetActive(true);
-        IconImage.sprite = Asset_Mng.Get_Atlas(m_Data.Name);
-        TitleText.text = m_Data.Name;
+        IconImage.sprite = Asset_Mng.Get_Atlas(m_Data.Key);
+        TitleText.text = m_Data.Key;
         SetBuildData(m_Data.timer, BuildCompleted);
+        Navigation_Mng.instance.PanelGet_Toast(m_Data, "Confirm");
     }
 
     private void BuildCompleted()
@@ -58,6 +59,7 @@ public class Building_OBJ : MonoBehaviour
         Board.GetComponent<Animator>().SetTrigger("Out");
         StartCoroutine(CompletedCoroutine());
         PortalQuad.SetActive(true);
+        Navigation_Mng.instance.PanelGet_Toast(m_Data, "Build_Completed");
     }
 
     private IEnumerator CompletedCoroutine()
