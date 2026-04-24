@@ -1,8 +1,16 @@
 using System;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class Utils : MonoBehaviour
 {
+    public static string Localization_text(String_Table table, string key)
+    {
+        Locale currentLanguage = LocalizationSettings.SelectedLocale;
+        return LocalizationSettings.StringDatabase.GetLocalizedString(table.ToString(), key, currentLanguage);
+    }
+
     public static string Timer(float time)
     {
         TimeSpan timespan = TimeSpan.FromSeconds(time);

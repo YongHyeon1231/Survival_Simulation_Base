@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: Assembly-CSharp::Item_Scriptable
   ItemID: 10006
-  ItemName: "\uBC14\uC704"
+  ItemName: Stone
   Description: "\uB2E8\uB2E8\uD558\uC9C0 \uBABB\uD55C \uBC14\uC704"
   Type: 3
   rarity: 0

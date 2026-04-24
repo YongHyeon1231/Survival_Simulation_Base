@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crystal
   m_EditorClassIdentifier: Assembly-CSharp::Item_Scriptable
   ItemID: 10001
-  ItemName: "\uD06C\uB9AC\uC2A4\uD0C8"
+  ItemName: Crystal
   Description: "\uC601\uB871\uD55C \uBE5B\uC744 \uB0B4\uB294 \uBCF4\uC11D"
   Type: 3
   rarity: 4

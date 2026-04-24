@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monster_Energy
   m_EditorClassIdentifier: Assembly-CSharp::Item_Scriptable
   ItemID: 10005
-  ItemName: "\uBAAC\uC2A4\uD130 \uC815\uC218"
+  ItemName: Monster_Energy
   Description: "\uBAAC\uC2A4\uD130\uC758 \uB450\uB824\uC6C0\uC774 \uB290\uAEF4\uC9C0\uB294
     \uC815\uC218"
   Type: 3

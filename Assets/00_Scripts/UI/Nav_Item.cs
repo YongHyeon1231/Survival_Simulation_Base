@@ -14,6 +14,6 @@ public class Nav_Item : MonoBehaviour
         Rarity_Image.sprite = Asset_Mng.Get_Atlas(m_Data.rarity.ToString());
         Item_Icon_Image.sprite = Asset_Mng.Get_Atlas(m_Data.ItemID.ToString());
 
-        Item_Name_Text.text = m_Data.ItemName + "x" + count.ToString();
+        Item_Name_Text.text = Utils.Localization_text(String_Table.Item, m_Data.ItemName) + "x" + count.ToString();
     }
 }

@@ -48,6 +48,6 @@ public class Building_Panel : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         gameObject.SetActive(true);
         m_Icon.sprite = Asset_Mng.Get_Atlas(m_Data.Name);
-        m_Text.text = m_Data.Name;
+        m_Text.text = Utils.Localization_text(String_Table.Building, m_Data.Name);
     }
 }

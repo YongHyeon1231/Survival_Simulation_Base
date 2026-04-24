@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ThunderWood
   m_EditorClassIdentifier: Assembly-CSharp::Item_Scriptable
   ItemID: 10023
-  ItemName: "\uBCBC\uB77D\uB9DE\uC740 \uC7A5\uC791"
+  ItemName: ThunderWood
   Description: "\uC804\uB958\uAC00 \uD750\uB974\uB294 \uB4EF\uD55C \uC7A5\uC791"
   Type: 3
   rarity: 3
