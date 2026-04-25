@@ -340,11 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Building_OBJ
   m_Data: {fileID: 0}
   particle: {fileID: 3300187884778473328}
-  Opaque_M: {fileID: 2100000, guid: 5606520e96a34e341b13a9f171e38fa9, type: 2}
-  Transparent_M: {fileID: 2100000, guid: 4d508159bc39e0d4ea3434cab899cadd, type: 2}
-  colors:
-  - {r: 0, g: 0.21148792, b: 5.9921575, a: 1}
-  - {r: 1, g: 0.27058825, b: 0.27058825, a: 1}
+  OriginalMaterial: {fileID: 0}
   CanBuild: 1
   Board: {fileID: 6209076891993415660}
   PortalQuad: {fileID: 3489061665177498086}

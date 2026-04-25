@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +11,8 @@ public class Canvas_Holder : MonoBehaviour
     [SerializeField] private Transform UI_PART_PARENT;
     [SerializeField] private GameObject Board;
     public Image BoardHpFill, BoardHpWhiteFill;
+    [SerializeField] private TextMeshProUGUI StaminaText;
+    [SerializeField] private Image StaminaFill;
     Coroutine F_Coroutine;
 
     private Dictionary<string, UIPART> uiParts = new Dictionary<string, UIPART>();
@@ -44,14 +46,33 @@ public class Canvas_Holder : MonoBehaviour
             uiParts.Add(part.name, part);
         }
 
-        Delegate_Holder.OnInteraction += GetBoard;
         Delegate_Holder.OnInteractionOut += BoardOut;
+        Delegate_Holder.OnStamina += StaminaCheck;
     }
 
     private void Update()
     {
         CheckUI(KeyCode.I, "INVENTORY");
         CheckUI(KeyCode.B, "BUILDING");
+    }
+
+    public void GetText(string temp, Color color)
+    {
+        Vector3 posReal = P_Movement.instance.transform.position;
+        posReal.y += 0.5f;
+        posReal.x += Random.Range(-0.5f, 0.5f);
+        posReal.z += Random.Range(-0.5f, 0.5f);
+
+        var go = Instantiate(Resources.Load<GameObject>("TextObject"), posReal, Quaternion.Euler(55, 0, 0));
+        TextMeshPro textObj = go.GetComponent<TextMeshPro>();
+        textObj.color = color;
+        textObj.text = temp;
+    }
+
+    private void StaminaCheck(int value)
+    {
+        StaminaText.text = Base_Mng.instance.Game.Stamina + "/" + Base_Mng.instance.Game.MaxStamina;
+        StaminaFill.fillAmount = (float)Base_Mng.instance.Game.Stamina / (float)Base_Mng.instance.Game.MaxStamina;
     }
 
     private void CheckUI(KeyCode key, string uiName)

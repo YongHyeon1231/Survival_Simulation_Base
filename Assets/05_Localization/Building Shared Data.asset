@@ -23,6 +23,14 @@ MonoBehaviour:
     m_Key: Portal.Value
     m_Metadata:
       m_Items: []
+  - m_Id: 333093820538880
+    m_Key: BonFire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 333107741433856
+    m_Key: BonFire.Value
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

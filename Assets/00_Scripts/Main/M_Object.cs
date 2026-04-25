@@ -7,16 +7,32 @@ public class M_Object : MonoBehaviour
 
     public int HP;
     public Item item_Prefab;
-    
+
+    private void Start()
+    {
+        Delegate_Holder.OnInteractionOut += OutInteraction;
+    }
+
+    private void OnDestroy()
+    {
+        Delegate_Holder.OnInteractionOut -= OutInteraction;
+    }
+
+    public virtual void OutInteraction()
+    {
+        
+    }
+
     public virtual void Interaction()
     {
         P_Handler.m_Object = this;
         GetInteraction = true;
-        HP_Init();
     }
 
     public virtual void OnHit()
     {
+        Canvas_Holder.instance.GetBoard();
+        Base_Mng.instance.Game.SetStamina(-10);
         HP_Init();
     }
 

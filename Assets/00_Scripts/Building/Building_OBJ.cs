@@ -12,14 +12,17 @@ public enum Material_Type
 
 public class Building_OBJ : MonoBehaviour
 {
-    public Building_Scriptable m_Data;
+    [HideInInspector] public Building_Scriptable m_Data;
     [SerializeField] private ParticleSystem particle;
 
     Renderer renderer;
     Collider collider;
-    public Material Opaque_M, Transparent_M;
+    private Material Opaque_M, Transparent_M;
+    public Material OriginalMaterial;
 
-    public Color[] colors;
+    private Color[] colors = 
+        {new Color(0.0f, 0.02643599f, 0.7490197f, 1.0f),
+        new Color(1.0f, 0.2705882f, 0.2705882f, 1.0f)};
 
     public bool CanBuild = true;
     private bool Completed = false;
@@ -34,6 +37,8 @@ public class Building_OBJ : MonoBehaviour
     [SerializeField] private TextMeshProUGUI PercentageText;
     private void Awake()
     {
+        Opaque_M = Resources.Load<Material>("Material/Opaque_M");
+        Transparent_M = Resources.Load<Material>("Material/Transparent_M");
         renderer = GetComponentInChildren<Renderer>();
         collider = GetComponentInChildren<Collider>();
     }
@@ -59,7 +64,6 @@ public class Building_OBJ : MonoBehaviour
         Board.GetComponent<Animator>().SetTrigger("Out");
         StartCoroutine(CompletedCoroutine());
         PortalQuad.SetActive(true);
-        Navigation_Mng.instance.PanelGet_Toast(m_Data, "Build_Completed");
     }
 
     private IEnumerator CompletedCoroutine()
@@ -93,6 +97,12 @@ public class Building_OBJ : MonoBehaviour
             yield return null;
         }
         Completed = true;
+
+        Navigation_Mng.instance.PanelGet_Toast(m_Data, "Build_Completed");
+        collider.gameObject.layer = LayerMask.NameToLayer("Object");
+
+        if (OriginalMaterial != null)
+            renderer.material = OriginalMaterial;
     }
 
     public void SetBuildData(float time, Action action)

@@ -33,7 +33,14 @@ public class Building_Mng : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit hitInfo, rayDistance, layer))
         {
-            BuildingObject.transform.position = hitInfo.point;
+            if(BuildingObject.transform.position.y > hitInfo.point.y)
+            {
+                BuildingObject.transform.position = new Vector3 (hitInfo.point.x, BuildingObject.transform.position.y, hitInfo.point.z);    
+            }
+            else
+            {
+                BuildingObject.transform.position = hitInfo.point;
+            }
         }
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
