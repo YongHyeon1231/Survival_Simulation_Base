@@ -24,6 +24,17 @@ public class Canvas_Holder : MonoBehaviour
         if(instance == null) instance = this;
     }
 
+    public UIPART GetUIPART(string name)
+    {
+        if(uiParts.ContainsKey(name))
+        {
+            return uiParts[name];
+        }
+        var uiPart = Instantiate(Resources.Load<UIPART>("UI/" + name), UI_PART_PARENT);
+        uiParts.Add(name, uiPart);
+        return uiPart;
+    }
+
     public void DestroyPopup()
     {
         if(popup != null) Destroy(popup.gameObject);
