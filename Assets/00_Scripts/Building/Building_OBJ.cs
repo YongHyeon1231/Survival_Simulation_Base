@@ -108,14 +108,14 @@ public class Building_OBJ : MonoBehaviour
             renderer.material = OriginalMaterial;
     }
 
-    public void SetMakeData(string key, float time, Action action = null)
+    public void SetMakeData(string key, float timer, Action action = null)
     {
         Board.SetActive(true);
         IconImage.sprite = Asset_Mng.Get_Atlas(key);
         TitleText.text = Utils.Localization_text(String_Table.Unit, key);
 
         Utils.SetLayer("WorkObject", collider.gameObject);
-        SetBuildData(time, action);
+        SetBuildData(timer, action);
     }
 
     public void SetBuildData(float time, Action action)
@@ -137,6 +137,7 @@ public class Building_OBJ : MonoBehaviour
         } 
         if(action != null)
         {
+            Board.GetComponent<Animator>().SetTrigger("Out");
             action?.Invoke();
         }  
     }

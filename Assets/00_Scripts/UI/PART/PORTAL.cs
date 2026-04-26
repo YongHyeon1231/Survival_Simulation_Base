@@ -44,10 +44,13 @@ public class PORTAL : UIPART
                 break;
             }
         }
+        
+        Portal portal = new Portal();
+        portal = m_Portal;
 
         if(CanBuild == false) return;
         Close();
-        m_Portal.GetComponent<Building_OBJ>().SetMakeData(Data.Key, Data.timer);
+        portal.GetComponent<Building_OBJ>().SetMakeData(Data.Key, Data.timer, () => portal.GetWorker());
         // 생성하기
     }
 

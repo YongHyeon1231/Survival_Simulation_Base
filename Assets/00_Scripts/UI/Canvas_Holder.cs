@@ -92,6 +92,8 @@ public class Canvas_Holder : MonoBehaviour
     {
         if(Input.GetKeyDown(key))
         {
+            P_Movement.instance.ReturnCharacterMove();
+
             CloseAllUI(uiName);
             DestroyPopup();
 

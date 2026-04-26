@@ -30,12 +30,14 @@ public class P_Movement : Character
         controller = GetComponent<CharacterController>();
         Finder = GetComponent<P_Finder>();
 
-        Delegate_Holder.OnInteraction += () => 
-        {
-            animator.SetBool("NoneInteraction", true);
-            animator.SetFloat("a_Speed", 0.0f);
-        };
+        Delegate_Holder.OnInteraction += ReturnCharacterMove;
         Delegate_Holder.OnInteractionOut += () => animator.SetBool("NoneInteraction", false);
+    }
+
+    public void ReturnCharacterMove()
+    {
+        animator.SetBool("NoneInteraction", true);
+        animator.SetFloat("a_Speed", 0.0f);
     }
 
     private void Update()

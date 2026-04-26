@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,24 +20,49 @@ public class Worker : Character
     public State m_State;
     NavMeshAgent agent;
 
-    public override void Start()
+    private void Awake()
     {
-        base.Start();
         agent = GetComponent<NavMeshAgent>();
-        StateChange(State.IDLE);       
+        base.Start();
+    }
+
+    public void SetDestination(Vector3 pos, Action action)
+    {
+        agent.SetDestination(pos);
+        animator.SetFloat("a_Speed", 1.0f);
+        StartCoroutine(DestinationCoroutine(action));
+    }
+
+    IEnumerator DestinationCoroutine(Action action)
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        while (agent.pathPending)
+            yield return null;
+
+        while (agent.hasPath && agent.remainingDistance > agent.stoppingDistance)
+            yield return null;
+
+        action?.Invoke();
+
+            // pathPending: 경로 계산 중이면 true → 계산 완료 전엔 체크 스킵
+            // hasPath: 유효한 경로가 있을 때만 체크 → 목적지 도달 불가 상황 방어
     }
 
     private void Update()
     {
         if(m_State == State.MOVE)
         {
-            animator.SetFloat("a_Speed", agent.velocity.magnitude);
-            Debug.Log("남은거리" + agent.remainingDistance);
-            if (!agent.pathPending && agent.hasPath && agent.remainingDistance <= 2.0f)
-            // pathPending: 경로 계산 중이면 true → 계산 완료 전엔 체크 스킵
-            // hasPath: 유효한 경로가 있을 때만 체크 → 목적지 도달 불가 상황 방어
+            if(closetObject == null)
             {
-                StateChange(State.Arrived);
+                StateChange(State.IDLE);
+            }
+        }
+        else if(m_State == State.Interaction)
+        {
+            if(closetObject == null)
+            {
+                StateChange(State.IDLE);
             }
         }
     }
@@ -47,7 +73,10 @@ public class Worker : Character
         switch (state)
         {
             case State.IDLE:
+                StopAllCoroutines();
+                agent.stoppingDistance = 3.0f;
                 EquipmentAllDeactive();
+                animator.SetFloat("a_Speed", 0.0f);
                 animator.SetBool("NoneInteraction", false);
                 StartCoroutine(LookAtTarget());
                 break;
@@ -55,6 +84,7 @@ public class Worker : Character
                 break;
             case State.Arrived:
                 M_Object subObject = null;
+                if(closetObject == null) StateChange(State.IDLE);
                 if(closetObject.GetComponent<M_Object>() == null)
                 {
                     subObject = closetObject.transform.parent.GetComponent<M_Object>();
@@ -85,7 +115,7 @@ public class Worker : Character
             FindClosetTarget();
             yield return new WaitForSeconds(0.5f);
         }
-        agent.SetDestination(new Vector3(closetObject.position.x, transform.position.y, closetObject.position.z));
+        SetDestination(closetObject.position, () => StateChange(State.Arrived));
         yield return new WaitForSeconds(0.02f);
         StateChange(State.MOVE);
     }
