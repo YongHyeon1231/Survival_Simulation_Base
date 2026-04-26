@@ -64,7 +64,6 @@ public class P_Finder : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.F))
             {
-                Debug.Log("오브젝트 상호작용!");
                 M_Object subObject = null;
                 if(closetObject.GetComponent<M_Object>() == null)
                 {
@@ -74,7 +73,7 @@ public class P_Finder : MonoBehaviour
                 {
                     subObject = closetObject.GetComponent<M_Object>();
                 }
-                subObject.Interaction();
+                subObject.Interaction(GetComponent<Character>());
                 Delegate_Holder.OnStartInteraction();
             }
         }

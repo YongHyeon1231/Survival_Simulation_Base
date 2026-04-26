@@ -23,31 +23,45 @@ public class M_Object : MonoBehaviour
         
     }
 
-    public virtual void Interaction()
+    public virtual void Interaction(Character character)
     {
-        P_Handler.m_Object = this;
+        character.m_Object = this;
         GetInteraction = true;
     }
 
-    public virtual void OnHit()
+    public virtual void OnHit(Character character)
     {
-        Canvas_Holder.instance.GetBoard();
-        Base_Mng.instance.Game.SetStamina(-10);
-        HP_Init();
+        if(character.MainPlayer)
+        {
+            Canvas_Holder.instance.GetBoard();
+            Base_Mng.instance.Game.SetStamina(-10);
+        }
+        HP_Init(character);
     }
 
-    public virtual void HP_Init()
+    public virtual void HP_Init(Character character)
     {
+        bool Main = character.MainPlayer;
         if(HP <= 0)
         {
             HP = 0;
             Particle_Handler.instance.OnParticle(transform.GetChild(0).GetComponent<MeshRenderer>());
-            Canvas_Holder.instance.AllStopCoroutine();
-            Canvas_Holder.instance.BoardHpWhiteFill.fillAmount = 1.0f;
+            if(Main)
+            {
+                Canvas_Holder.instance.AllStopCoroutine();
+                Canvas_Holder.instance.BoardHpWhiteFill.fillAmount = 1.0f;
+                Delegate_Holder.OnOutInteraction();
+            }
+            else
+            {
+                character.GetComponent<Worker>().StateChange(State.IDLE);
+            }
             Destroy(this.gameObject);
-            Delegate_Holder.OnOutInteraction();
             return;
         }
-        Canvas_Holder.instance.BoardFill(HP, m_Data.HP);
+        if(Main)
+        {
+            Canvas_Holder.instance.BoardFill(HP, m_Data.HP);
+        }
     }
 }

@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class Cam_Movement : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    private Transform player;
 
     [SerializeField] private float PosX = 0.0f;
     [SerializeField] private float PosY = 15.0f;
     [SerializeField] private float PosZ = -10.0f;
 
     [SerializeField] private float m_Speed = 2.0f;
+
+    private void Start()
+    {
+        player = P_Movement.instance.transform;
+    }
 
     private void LateUpdate()
     {

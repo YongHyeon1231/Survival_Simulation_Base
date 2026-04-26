@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CharacterController))]
-public class P_Movement : MonoBehaviour
+public class P_Movement : Character
 {
     public static P_Movement instance = null;
 
@@ -16,10 +16,7 @@ public class P_Movement : MonoBehaviour
     public LayerMask groundLayer;
     public float rotationSpeed = 10.0f;
 
-    [SerializeField] private GameObject[] Equipments;
-
     private CharacterController controller;
-    private Animator animator;
     private P_Finder Finder;
 
     private void Awake()
@@ -27,28 +24,10 @@ public class P_Movement : MonoBehaviour
         if (instance == null) instance = this;
     }
 
-    public void AnimationChange(string temp)
+    public override void Start()
     {
-        animator.SetTrigger(temp);
-    }
-
-    public void EquipmentChange(Object_Type type, bool Active)
-    {
-        Equipments[(int)type].SetActive(Active);
-    }
-
-    public void EquipmentAllDeactive()
-    {
-        for(int i = 0; i < Equipments.Length; i++)
-        {
-            Equipments[i].SetActive(false);
-        }
-    }
-
-    private void Start()
-    {
+        base.Start();
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
         Finder = GetComponent<P_Finder>();
 
         Delegate_Holder.OnInteraction += () => 

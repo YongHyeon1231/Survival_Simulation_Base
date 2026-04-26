@@ -35,6 +35,9 @@ public class Building_OBJ : MonoBehaviour
     [SerializeField] private Image FillSlider;
     [SerializeField] private TextMeshProUGUI TitleText;
     [SerializeField] private TextMeshProUGUI PercentageText;
+
+    public bool Working = false;
+
     private void Awake()
     {
         Opaque_M = Resources.Load<Material>("Material/Opaque_M");
@@ -99,7 +102,7 @@ public class Building_OBJ : MonoBehaviour
         Completed = true;
 
         Navigation_Mng.instance.PanelGet_Toast(m_Data, "Build_Completed");
-        collider.gameObject.layer = LayerMask.NameToLayer("Object");
+        Utils.SetLayer("Object", collider.gameObject);
 
         if (OriginalMaterial != null)
             renderer.material = OriginalMaterial;
@@ -110,6 +113,8 @@ public class Building_OBJ : MonoBehaviour
         Board.SetActive(true);
         IconImage.sprite = Asset_Mng.Get_Atlas(key);
         TitleText.text = Utils.Localization_text(String_Table.Unit, key);
+
+        Utils.SetLayer("WorkObject", collider.gameObject);
         SetBuildData(time, action);
     }
 
