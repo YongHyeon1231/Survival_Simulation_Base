@@ -50,6 +50,18 @@ public class ItemFlowController
         OnItemGet?.Invoke();
     }
 
+    public static void REMOVEITEM(string key, int value)
+    {
+        if (!HaveItem(key)) return;
+
+        Item_Pairs[key].Count -= value;
+
+        if (Item_Pairs[key].Count <= 0)
+            Item_Pairs.Remove(key);
+
+        OnItemGet?.Invoke();
+    }
+
     public static bool HaveItem(string value)
     {
         if (Item_Pairs.ContainsKey(value))

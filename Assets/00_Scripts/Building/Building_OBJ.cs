@@ -115,7 +115,12 @@ public class Building_OBJ : MonoBehaviour
         TitleText.text = Utils.Localization_text(String_Table.Unit, key);
 
         Utils.SetLayer("WorkObject", collider.gameObject);
-        SetBuildData(timer, action);
+        SetBuildData(timer, 
+        () => 
+        {
+            Utils.SetLayer("Object", collider.gameObject);
+            action?.Invoke();
+        });
     }
 
     public void SetBuildData(float time, Action action)

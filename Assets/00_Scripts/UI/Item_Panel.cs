@@ -19,6 +19,12 @@ public class Item_Panel : MonoBehaviour , IPointerEnterHandler, IPointerExitHand
         this.parentPanel = inventory;
     }
 
+    public void Clear()
+    {
+        m_Item = new ITEM();
+        parentPanel = null;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(parentPanel == null) return;

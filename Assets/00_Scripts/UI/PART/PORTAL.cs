@@ -45,10 +45,13 @@ public class PORTAL : UIPART
             }
         }
         
-        Portal portal = new Portal();
-        portal = m_Portal;
+        Portal portal = m_Portal;
 
         if(CanBuild == false) return;
+
+        for (int i = 0; i < Data.itemList.Count; i++)
+            ItemFlowController.REMOVEITEM(Data.itemList[i].Data.Key, Data.itemList[i].Count);
+
         Close();
         portal.GetComponent<Building_OBJ>().SetMakeData(Data.Key, Data.timer, () => portal.GetWorker());
         // 생성하기

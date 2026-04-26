@@ -20,5 +20,7 @@ public class Object_Scriptable : ScriptableObject
     public string Name;
     public int HP;
 
+    public GameObject obj;
+
     public List<ITEMLIST> Drop_Items = new List<ITEMLIST>();
 }

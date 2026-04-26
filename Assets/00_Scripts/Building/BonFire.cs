@@ -20,7 +20,7 @@ public class BonFire : M_Object
     IEnumerator BonFireCoroutine()
     {
         yield return new WaitForSeconds(1.0f);
-        Base_Mng.instance.Game.SetStamina(10);
+        Base_Mng.Game.SetStamina(10);
 
         StartCoroutine(BonFireCoroutine());
     }

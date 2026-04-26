@@ -21,7 +21,7 @@ public class UIPART : MonoBehaviour
             Debug.LogWarning($"{gameObject.name} is Not Active.");
             return;
         }
-        Canvas_Holder.Uis.Dequeue();
+        if (Canvas_Holder.Uis.Count > 0) Canvas_Holder.Uis.Dequeue();
         if (GetComponent<Animator>() != null)
         {
             GetComponent<Animator>().SetTrigger("Out");

@@ -84,8 +84,8 @@ public class Canvas_Holder : MonoBehaviour
 
     private void StaminaCheck(int value)
     {
-        StaminaText.text = Base_Mng.instance.Game.Stamina + "/" + Base_Mng.instance.Game.MaxStamina;
-        StaminaFill.fillAmount = (float)Base_Mng.instance.Game.Stamina / (float)Base_Mng.instance.Game.MaxStamina;
+        StaminaText.text = Base_Mng.Game.Stamina + "/" + Base_Mng.Game.MaxStamina;
+        StaminaFill.fillAmount = (float)Base_Mng.Game.Stamina / (float)Base_Mng.Game.MaxStamina;
     }
 
     private void CheckUI(KeyCode key, string uiName)

@@ -16,6 +16,12 @@ public class P_Movement : Character
     public LayerMask groundLayer;
     public float rotationSpeed = 10.0f;
 
+    [Space(20f)]
+    
+    [Header("#Gravity")]
+    [SerializeField] private float gravity = -9.8f;
+    private float verticalVelocity = 0.0f;
+
     private CharacterController controller;
     private P_Finder Finder;
 
@@ -73,7 +79,19 @@ public class P_Movement : Character
 
         Vector3 moveDirection = cameraForward * vertical + cameraRight * horizontal;
 
-        controller.Move(moveDirection * moveSpeed * Time.deltaTime);
+        // controller.Move(moveDirection * moveSpeed * Time.deltaTime);
+
+        if (controller.isGrounded && verticalVelocity < 0.0f)
+        {
+            verticalVelocity = -2f;
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+
+        Vector3 velocity = moveDirection * moveSpeed + Vector3.up * verticalVelocity;
+        controller.Move(velocity * Time.deltaTime);
 
         float currentSpeed = moveDirection.magnitude * moveSpeed;
         animator.SetFloat("a_Speed", currentSpeed);

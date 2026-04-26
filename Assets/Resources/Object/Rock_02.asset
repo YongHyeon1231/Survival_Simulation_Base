@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537fc769596c02a41b63c9fbdbcb959d, type: 3}
+  m_Name: Rock_02
+  m_EditorClassIdentifier: Assembly-CSharp::Object_Scriptable
+  m_Type: 2
+  Name: "\uBC14\uC704"
+  HP: 100
+  obj: {fileID: 6979645256210234262, guid: 89691312b51b5bf48a1636dc7affe95e, type: 3}
+  Drop_Items:
+  - Item_Data: {fileID: 11400000, guid: 4dd52d7ab51c79e4eb28292372cdc3ca, type: 2}
+    value: 100
+    Maximum: 5
+  - Item_Data: {fileID: 11400000, guid: 2f2fc7186a7b8024d8eaa803d559d3ef, type: 2}
+    value: 80
+    Maximum: 5
+  - Item_Data: {fileID: 11400000, guid: 403402c443297584c84f590eb0763aa2, type: 2}
+    value: 70
+    Maximum: 5

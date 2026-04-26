@@ -40,6 +40,13 @@ public class P_Finder : MonoBehaviour
     {
         if(OnInteraction) return;
 
+        if(Canvas_Holder.Uis.Count > 0)
+        {
+            closetObject = null;
+            IconInit();
+            return;
+        }
+
         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, checkRadius, interactableLayer);
 
         closetObject = null;

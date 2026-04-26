@@ -52,9 +52,15 @@ public class BUILDING : UIPART
 
         if(CanBuild == false) return;
 
+        for (int i = 0; i <BuildingObj.m_Items.Count; i++)
+        {
+            ITEM item = BuildingObj.m_Items[i];
+            ItemFlowController.REMOVEITEM(item.Data.Key, item.Count);
+        }
+
         Close();
 
-        Base_Mng.instance.Build.SetBuild(BuildingObj);
+        Base_Mng.Build.SetBuild(BuildingObj);
 
     }
 

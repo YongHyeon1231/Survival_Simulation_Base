@@ -41,17 +41,31 @@ public class INVENTORY : UIPART
         SetInventory();
     }
 
+    // public void SetItemList()
+    // {
+    //     int value = 0;
+    //     foreach (var item in ItemFlowController.Item_Pairs)
+    //     {
+    //         if(Inventory_Items.ContainsKey(item.Value.Data.Key) == false && items[value].parentPanel == null)
+    //         {
+    //             items[value].Init(item.Value, this);
+    //             Inventory_Items.Add(item.Value.Data.Key, item.Value);
+    //         }
+    //         value++;
+    //     }
+    // }
+
     public void SetItemList()
     {
-        int value = 0;
-        foreach (var item in ItemFlowController.Item_Pairs)
+        foreach (var panel in items) panel.Clear();
+        Inventory_Items.Clear();
+
+        int index = 0;
+        foreach(var pair in ItemFlowController.Item_Pairs)
         {
-            if(Inventory_Items.ContainsKey(item.Value.Data.Key) == false && items[value].parentPanel == null)
-            {
-                items[value].Init(item.Value, this);
-                Inventory_Items.Add(item.Value.Data.Key, item.Value);
-            }
-            value++;
+            items[index].Init(pair.Value, this);
+            Inventory_Items.Add(pair.Key, pair.Value);
+            index++;
         }
     }
 

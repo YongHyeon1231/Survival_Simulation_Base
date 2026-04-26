@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class M_Object : MonoBehaviour
 {
-    public Object_Scriptable m_Data;
+    [HideInInspector] public Object_Scriptable m_Data;
     public bool GetInteraction = false;
 
     public int HP;
@@ -34,7 +34,7 @@ public class M_Object : MonoBehaviour
         if(character.MainPlayer)
         {
             Canvas_Holder.instance.GetBoard();
-            Base_Mng.instance.Game.SetStamina(-10);
+            Base_Mng.Game.SetStamina(-10);
         }
         HP_Init(character);
     }
@@ -56,6 +56,7 @@ public class M_Object : MonoBehaviour
             {
                 character.GetComponent<Worker>().StateChange(State.IDLE);
             }
+            Base_Mng.Object.RemoveObject(this.gameObject);
             Destroy(this.gameObject);
             return;
         }
