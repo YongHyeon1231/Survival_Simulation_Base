@@ -16,6 +16,7 @@ public class Canvas_Holder : MonoBehaviour
     Coroutine F_Coroutine;
 
     private Dictionary<string, UIPART> uiParts = new Dictionary<string, UIPART>();
+    public static Queue<UIPART> Uis = new Queue<UIPART>();
     PopUP_Description popup;
 
 
@@ -32,6 +33,7 @@ public class Canvas_Holder : MonoBehaviour
         }
         var uiPart = Instantiate(Resources.Load<UIPART>("UI/" + name), UI_PART_PARENT);
         uiParts.Add(name, uiPart);
+        uiPart.gameObject.SetActive(false);
         return uiPart;
     }
 

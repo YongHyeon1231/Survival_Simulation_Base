@@ -17,4 +17,9 @@ public class Utils : MonoBehaviour
         string timer = string.Format("{0:00}:{1:00}", timespan.Minutes, timespan.Seconds);
         return timer;
     }
+
+    public static T FindBase<T>(Transform parent, string key)
+    {
+        return parent.Find(key).GetComponent<T>();
+    }
 }

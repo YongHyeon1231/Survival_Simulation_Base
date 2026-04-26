@@ -105,6 +105,14 @@ public class Building_OBJ : MonoBehaviour
             renderer.material = OriginalMaterial;
     }
 
+    public void SetMakeData(string key, float time, Action action = null)
+    {
+        Board.SetActive(true);
+        IconImage.sprite = Asset_Mng.Get_Atlas(key);
+        TitleText.text = Utils.Localization_text(String_Table.Unit, key);
+        SetBuildData(time, action);
+    }
+
     public void SetBuildData(float time, Action action)
     {
         StartCoroutine(SliderFillCoroutine(time, action));

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CharacterController))]
 public class P_Movement : MonoBehaviour
@@ -62,12 +63,14 @@ public class P_Movement : MonoBehaviour
     {
         if(Finder.OnInteraction)
         {
-            if(Input.anyKeyDown && !Input.GetKeyDown(KeyCode.F))
+            if(Input.anyKeyDown && !Input.GetKeyDown(KeyCode.F) && !EventSystem.current.IsPointerOverGameObject(0)) // EventSystem.current.IsPointerOverGameObject(0) UI를 클릭했으면 동작하지 않음
             {
                 Delegate_Holder.OnOutInteraction();
             }
             return;
         }
+        
+        if(Canvas_Holder.Uis.Count > 0) return;
 
         Move();
         RotateTowardsMouse();
