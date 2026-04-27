@@ -9,7 +9,7 @@ public class Cam_Movement : MonoBehaviour
     {
         if (instance == null) instance = this;
     }
-    
+
     private Transform player;
 
     [SerializeField] private float PosX = 0.0f;
@@ -24,6 +24,8 @@ public class Cam_Movement : MonoBehaviour
     Vector3 OriginalPos;
     bool isCameraShake = false;
 
+    private Vector3 shakeOffset;
+
 
     private void Start()
     {
@@ -32,9 +34,10 @@ public class Cam_Movement : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(isCameraShake) return; //카메라가 흔들리는 동안에는 카메라가 따라가지 않음.
+        // if(isCameraShake) return; //카메라가 흔들리는 동안에는 카메라가 따라가지 않음.
 
         Move();
+        transform.position += shakeOffset;
     }
 
     private void Move()
@@ -56,19 +59,34 @@ public class Cam_Movement : MonoBehaviour
         StartCoroutine(CameraShake_Coroutine());
     }
 
+    // IEnumerator CameraShake_Coroutine() 
+    // {
+    //     OriginalPos = transform.localPosition;
+    //     float timer = 0.0f;
+    //     while (timer <= Duration)
+    //     {
+    //         transform.localPosition = Random.insideUnitSphere * Power + OriginalPos;
+
+    //         timer += Time.deltaTime;
+    //         yield return null;
+    //     }
+
+    //     transform.localPosition = OriginalPos;
+    //     isCameraShake = false;
+    // }
+
     IEnumerator CameraShake_Coroutine() 
     {
-        OriginalPos = transform.localPosition;
         float timer = 0.0f;
         while (timer <= Duration)
         {
-            transform.localPosition = Random.insideUnitSphere * Power + OriginalPos;
+            shakeOffset = Random.insideUnitCircle * Power;
 
             timer += Time.deltaTime;
             yield return null;
         }
 
-        transform.localPosition = OriginalPos;
+        shakeOffset = Vector3.zero;
         isCameraShake = false;
     }
 }
