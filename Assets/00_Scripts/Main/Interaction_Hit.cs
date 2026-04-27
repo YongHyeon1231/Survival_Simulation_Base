@@ -50,11 +50,16 @@ public class Interaction_Hit :  M_Object
         //     originalRotation.eulerAngles.y,
         //     originalRotation.eulerAngles.z + oppositeDirection.x * shakeAmount);
 
+        // Quaternion targetRotation = Quaternion.Euler(
+        //     -oppositeDirection.z * shakeAmount,
+        //     0,
+        //     oppositeDirection.x * shakeAmount
+        //     );
+
         Quaternion targetRotation = Quaternion.Euler(
-            -oppositeDirection.z * shakeAmount,
-            0,
-            oppositeDirection.x * shakeAmount
-            );
+            originalRotation.eulerAngles.x + shakeAmount, 
+            originalRotation.eulerAngles.y,
+            originalRotation.eulerAngles.z + shakeAmount);
 
         StopAllCoroutines();
         StartCoroutine(ShakeAnimation(targetRotation));

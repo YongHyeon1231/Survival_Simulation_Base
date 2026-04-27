@@ -65,6 +65,9 @@ public class Building_OBJ : MonoBehaviour
     {
         SetMaterial(Material_Type.Opaque);
         Board.GetComponent<Animator>().SetTrigger("Out");
+
+        CompassBar.AddMarker(transform, m_Data.Key);
+
         StartCoroutine(CompletedCoroutine());
         PortalQuad.SetActive(true);
     }
