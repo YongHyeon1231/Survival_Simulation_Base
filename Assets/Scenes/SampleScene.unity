@@ -2704,6 +2704,8 @@ MonoBehaviour:
   PosY: 15
   PosZ: -10
   m_Speed: 2
+  Duration: 0.3
+  Power: 0.05
 --- !u!1 &339343305
 GameObject:
   m_ObjectHideFlags: 0

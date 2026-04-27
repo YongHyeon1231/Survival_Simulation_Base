@@ -24,7 +24,9 @@ public class Interaction_Hit :  M_Object
     public override void OnHit(Character character)
     {
         base.OnHit(character);
-        ShakeTree(transform.position - P_Movement.instance.transform.position);
+
+        if (gameObject.activeInHierarchy) // 활성화 상태일 때만 흔들기
+            ShakeTree(transform.position - P_Movement.instance.transform.position);
 
         if(HP <= 0 )
         {

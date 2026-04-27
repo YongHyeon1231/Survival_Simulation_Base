@@ -35,6 +35,7 @@ public class M_Object : MonoBehaviour
         {
             Canvas_Holder.instance.GetBoard();
             Base_Mng.Game.SetStamina(-10);
+            Cam_Movement.instance.CameraShake();
         }
         HP_Init(character);
     }
