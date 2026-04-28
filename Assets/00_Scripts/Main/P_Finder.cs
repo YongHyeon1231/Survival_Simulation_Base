@@ -11,8 +11,8 @@ public class P_Finder : MonoBehaviour
     [SerializeField] private float activationDistance = 3.0f;
 
     private Dictionary<Transform, GameObject> activeIcons = new Dictionary<Transform, GameObject>();
-    private Transform closetObject;
     [HideInInspector]public bool OnInteraction = false;
+    private Transform closetObject;
 
     private void Start()
     {
@@ -93,7 +93,7 @@ public class P_Finder : MonoBehaviour
         List<Transform> toRemove = new List<Transform>();
         foreach(var iconEntry in activeIcons)
         {
-            if(iconEntry.Key != closetObject)
+            if(iconEntry.Key != closetObject || closetObject == null)
             {
                 // iconEntry.Value.GetComponent<UI_Animation_Handler>().AnimationChange("Out");
                 // toRemove.Add(iconEntry.Key);

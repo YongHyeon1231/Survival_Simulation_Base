@@ -12,6 +12,7 @@ public class Object_Mng : MonoBehaviour
     public float spawnAngleValue = 65.0f;
     public float CenterLimitValue = 10.0f;
     public int Maximum;
+    public Transform ObjectParentTransform;
     private Object_Scriptable[] m_Datas;
 
     private void Start()
@@ -94,7 +95,8 @@ public class Object_Mng : MonoBehaviour
 
             var go = Instantiate(GetObject, 
                 new Vector3(pos.x, GetObject.transform.position.y, pos.z), 
-                Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f));
+                Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f),
+                ObjectParentTransform );
 
             go.gameObject.SetActive(false);
 
