@@ -12,7 +12,9 @@ public class Canvas_Holder : MonoBehaviour
     [SerializeField] private GameObject Board;
     public Image BoardHpFill, BoardHpWhiteFill;
     [SerializeField] private TextMeshProUGUI StaminaText;
+    [SerializeField] private TextMeshProUGUI HPText;
     [SerializeField] private Image StaminaFill;
+    [SerializeField] private Image HPFill;
     Coroutine F_Coroutine;
 
     private Dictionary<string, UIPART> uiParts = new Dictionary<string, UIPART>();
@@ -61,6 +63,7 @@ public class Canvas_Holder : MonoBehaviour
 
         Delegate_Holder.OnInteractionOut += BoardOut;
         Delegate_Holder.OnStamina += StaminaCheck;
+        Delegate_Holder.OnHP += HPCheck;
     }
 
     private void Update()
@@ -80,6 +83,13 @@ public class Canvas_Holder : MonoBehaviour
         TextMeshPro textObj = go.GetComponent<TextMeshPro>();
         textObj.color = color;
         textObj.text = temp;
+    }
+
+    private void HPCheck(int value)
+    {
+        Character character = P_Movement.instance.GetComponent<Character>();
+        HPText.text = character.HP.ToString() + "/" + character.MaxHP.ToString();
+        HPFill.fillAmount = (float)character.HP / (float)character.MaxHP;
     }
 
     private void StaminaCheck(int value)

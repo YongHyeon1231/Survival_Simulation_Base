@@ -17,6 +17,7 @@ public class Character : MonoBehaviour
     public virtual void Start()
     {
         animator = GetComponent<Animator>();
+        HP = MaxHP;
     }
 
     public virtual void Hit()
