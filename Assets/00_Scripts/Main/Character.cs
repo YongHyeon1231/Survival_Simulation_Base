@@ -3,10 +3,16 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public bool MainPlayer = false;
+
+    public int HP;
+    public int MaxHP;
+
     [SerializeField] protected GameObject[] Equipments;
     protected Animator animator;
     public M_Object m_Object = null;
+    public Collider[] colliders;
     [SerializeField] protected GameObject HitParticle;
+    [SerializeField] private Transform GetParticleTransform;
 
     public virtual void Start()
     {
@@ -19,15 +25,30 @@ public class Character : MonoBehaviour
         
         m_Object.HP -= 20;
 
+        GetHitParticle();
+
+        m_Object.OnHit(this);
+    }
+
+    public virtual void Attack()
+    {
+        GetHitParticle();
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].GetComponent<Monster>().GetDamage(10);
+        }
+    }
+
+    public void GetHitParticle()
+    {
         Vector3 pos = new Vector3(
-            m_Object.transform.position.x + Random.Range(-0.5f, 0.5f),
-            m_Object.transform.position.y + 1.5f,
-            m_Object.transform.position.z + Random.Range(-0.5f, 0.5f)
+            GetParticleTransform.position.x + Random.Range(-0.5f, 0.5f),
+            GetParticleTransform.position.y,
+            GetParticleTransform.position.z + Random.Range(-0.5f, 0.5f)
             );
             
         Instantiate(HitParticle, pos, Quaternion.identity);
-
-        m_Object.OnHit(this);
     }
 
     public void EquipmentAllDeactive()

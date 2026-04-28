@@ -16,8 +16,9 @@ public enum Object_Type
     None,
     Tree,
     Stone,
+    Monster,
     Water,
-    Food
+    Food,
 }
 
 public enum Item_Type

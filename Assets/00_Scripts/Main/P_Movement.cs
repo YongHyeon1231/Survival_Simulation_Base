@@ -60,6 +60,7 @@ public class P_Movement : Character
         if(Canvas_Holder.Uis.Count > 0) return;
 
         Move();
+        if (Finder.GetMonster) return;
         RotateTowardsMouse();
     }
 

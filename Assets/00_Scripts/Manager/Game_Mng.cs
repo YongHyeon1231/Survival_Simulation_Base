@@ -24,7 +24,7 @@ public class Game_Mng : MonoBehaviour
         if (GetText)
         {
             Color color = value > 0 ? Color.green : Color.red;
-            Canvas_Holder.instance.GetText(value.ToString(), color);
+            Canvas_Holder.instance.GetText(value.ToString(), color, P_Movement.instance.transform.position);
         }
         Delegate_Holder.OnStaminaChange(value);
     }

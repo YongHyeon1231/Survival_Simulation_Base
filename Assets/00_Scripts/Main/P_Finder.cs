@@ -5,13 +5,18 @@ public class P_Finder : MonoBehaviour
 {
     [SerializeField] private float checkRadius = 5.0f;
     [SerializeField] private LayerMask interactableLayer;
+    [SerializeField] private LayerMask monsterLayer;
     [SerializeField] Canvas uiCanvas;
     [SerializeField] private GameObject IconPrefab;
 
     [SerializeField] private float activationDistance = 3.0f;
+    [SerializeField] private float attack_speed;
 
     private Dictionary<Transform, GameObject> activeIcons = new Dictionary<Transform, GameObject>();
     [HideInInspector]public bool OnInteraction = false;
+    public bool GetMonster = false;
+    bool isAttack = false;
+
     private Transform closetObject;
 
     private void Start()
@@ -46,6 +51,24 @@ public class P_Finder : MonoBehaviour
             IconInit();
             return;
         }
+
+        Collider[] monsterObjects = Physics.OverlapSphere(transform.position, checkRadius, monsterLayer);
+        GetMonster = monsterObjects.Length > 0;
+
+        if(GetMonster)
+        {
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                if (!isAttack)
+                {
+                    AttackMonster(monsterObjects);
+                    P_Movement.instance.EquipmentChange(Object_Type.Monster, true);
+                }
+            }
+            transform.LookAt(monsterObjects[0].transform);
+            return;
+        }
+        P_Movement.instance.EquipmentChange(Object_Type.Monster, false);
 
         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, checkRadius, interactableLayer);
 
@@ -87,6 +110,16 @@ public class P_Finder : MonoBehaviour
 
         IconInit();
     }
+
+    private void AttackMonster(Collider[] monsters)
+    {
+        isAttack = true;
+        P_Movement.instance.AnimationChange("Attack");
+        P_Movement.instance.colliders = monsters;
+        Invoke("ReturnAttack", attack_speed);
+    }
+
+    private void ReturnAttack() => isAttack = false;
 
     private void IconInit()
     {
