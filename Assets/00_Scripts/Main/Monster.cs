@@ -11,20 +11,13 @@ public class Monster : MonoBehaviour
 
 
     [SerializeField] private float Range;
-    [SerializeField] private GameObject Board;
-    [SerializeField] private Image Slider01Fill;
-    [SerializeField] private Image Slider02Fill;
 
-    Coroutine coroutine;
     Coroutine hit_Coroutine;
-    Coroutine Find_Coroutine;
 
     Renderer renderer;
     Animator animator;
 
     Transform target;
-    Transform canvasTransform;
-    Vector3 lastTargetPosition;
 
     bool isAttack = false;
     bool isDead = false;
@@ -35,9 +28,6 @@ public class Monster : MonoBehaviour
         animator = GetComponent<Animator>();
         HP = MaxHP;
         renderer = transform.GetComponentInChildren<Renderer>();
-
-        Slider01Fill.fillAmount = 1;
-        Slider02Fill.fillAmount = 1;
 
         AnimationChange("IDLE", false);
         StartCoroutine(FindPlayer());
@@ -65,6 +55,7 @@ public class Monster : MonoBehaviour
     
     private void Update()
     {
+        if (isDead) return;
         if (target == null) return;
 
         float distance = Vector3.Distance(target.position, transform.position);
@@ -138,21 +129,29 @@ public class Monster : MonoBehaviour
 
     public void GetDamage(int dmg)
     {
+        if (isDead) return;
+
         var playerPos = P_Movement.instance.transform.position;
         if(Vector3.Distance(transform.position, playerPos) <= Range)
         {
-            Board.SetActive(true);
             Canvas_Holder.instance.GetText(dmg.ToString(), Color.yellow, transform.position);
             HP -= dmg;
+            Canvas_Holder.instance.AddSlider(this);
             P_Movement.instance.GetComponent<Character>().GetHitParticle();
 
-            if(coroutine != null) StopCoroutine(coroutine);
-
-            coroutine = StartCoroutine(SliderCoroutine(HP));
-
             if(hit_Coroutine != null) StopCoroutine(hit_Coroutine);
-
             hit_Coroutine = StartCoroutine(GetHitCoroutine());
+
+            if(HP <= 0)
+            {
+                isDead = true;
+                StopAllCoroutines();
+                StopMovement(true);
+                Canvas_Holder.instance.RemoveSlider(this);
+                this.gameObject.layer = LayerMask.NameToLayer("Default");
+                AnimationChange("DIE", true);
+                Destroy(this.gameObject, 1.5f);
+            }
         }
     }
 
@@ -187,17 +186,6 @@ public class Monster : MonoBehaviour
         }
     }
 
-    IEnumerator SliderCoroutine(int hp)
-    {
-        float value = (float)hp/(float)MaxHP;
-        Slider02Fill.fillAmount = value;
-        float timer = 0.0f;
-        while(timer <= 1.0f)
-        {
-            timer += Time.deltaTime;
-            Slider01Fill.fillAmount = Mathf.Lerp(Slider01Fill.fillAmount, Slider02Fill.fillAmount, timer);
-            yield return null;
-        }
-    }
+    
 
 }

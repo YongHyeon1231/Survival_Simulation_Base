@@ -18,8 +18,10 @@ public class Canvas_Holder : MonoBehaviour
     Coroutine F_Coroutine;
 
     private Dictionary<string, UIPART> uiParts = new Dictionary<string, UIPART>();
+    private Dictionary<Monster, Directional_Monster_Slider> monsterSliders = new Dictionary<Monster, Directional_Monster_Slider>();
     public static Queue<UIPART> Uis = new Queue<UIPART>();
     PopUP_Description popup;
+    public Directional_Monster_Slider monster_Slider;
 
 
     private void Awake()
@@ -68,8 +70,41 @@ public class Canvas_Holder : MonoBehaviour
 
     private void Update()
     {
+        CheckSlider();
         CheckUI(KeyCode.I, "INVENTORY");
         CheckUI(KeyCode.B, "BUILDING");
+    }
+
+    public void AddSlider(Monster monster)
+    {
+        if (monsterSliders.ContainsKey(monster))
+        {
+            monsterSliders[monster].GetSliderCheck();
+        }
+        else
+        {
+            var go = Instantiate(monster_Slider, transform);
+            go.monster = monster;
+            monsterSliders.Add(monster, go);
+            monsterSliders[monster].GetSliderCheck();
+        }
+    }
+
+    public void RemoveSlider(Monster monster)
+    {
+        monsterSliders[monster].GetComponent<Animator>().SetTrigger("Out");
+        monsterSliders.Remove(monster);
+    }
+
+    private void CheckSlider()
+    {
+        foreach(var slider in monsterSliders)
+        {
+            Vector3 pos = slider.Key.transform.position;
+            pos.y += 2.0f;
+            slider.Value.transform.position = Camera.main.WorldToScreenPoint(pos);
+            // slider.Value.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(pos);
+        }
     }
 
     public void GetText(string temp, Color color, Vector3 posReal)

@@ -585,7 +585,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.13
-  m_BaseOffset: 0
+  m_BaseOffset: 0.03
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
 --- !u!114 &2795010869079218932
@@ -601,12 +601,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Worker
   MainPlayer: 0
+  HP: 0
+  MaxHP: 0
   Equipments:
   - {fileID: 6778587432551973877}
   - {fileID: 882661669896490590}
   - {fileID: 7726242915875072126}
   m_Object: {fileID: 0}
+  colliders: []
   HitParticle: {fileID: 4760817897469580877, guid: 14c63429778c32b4096414edf9266204, type: 3}
+  GetParticleTransform: {fileID: 0}
   checkRadius: 100
   activationDistance: 100
   interactableLayer:
