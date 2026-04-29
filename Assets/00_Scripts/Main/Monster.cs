@@ -11,6 +11,7 @@ public class Monster : MonoBehaviour
 
 
     [SerializeField] private float Range;
+    [SerializeField] private GameObject DestroyParticle;
 
     Coroutine hit_Coroutine;
 
@@ -128,10 +129,13 @@ public class Monster : MonoBehaviour
     {
         if (isDead) return;
 
-        var playerPos = P_Movement.instance.transform.position;
-        if(Vector3.Distance(transform.position, playerPos) <= Range)
-        {
-            Canvas_Holder.instance.GetText(dmg.ToString(), Color.yellow, transform.position);
+        // var playerPos = P_Movement.instance.transform.position;
+        // if(Vector3.Distance(transform.position, playerPos) <= Range)
+        // {
+        //    근접 공격일때 사용하던 것
+        // }
+
+        Canvas_Holder.instance.GetText(dmg.ToString(), Color.yellow, transform.position);
             HP -= dmg;
             Canvas_Holder.instance.AddSlider(this);
             P_Movement.instance.GetComponent<Character>().GetHitParticle();
@@ -144,13 +148,15 @@ public class Monster : MonoBehaviour
                 isDead = true;
                 StopAllCoroutines();
                 StopMovement(true);
+                Instantiate(DestroyParticle, 
+                    new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
+                    Quaternion.identity);
                 parentSpawner.spawnedMonsters.Remove(this);
                 Canvas_Holder.instance.RemoveSlider(this);
                 this.gameObject.layer = LayerMask.NameToLayer("Default");
                 AnimationChange("DIE", true);
                 Destroy(this.gameObject, 1.5f);
             }
-        }
     }
 
     IEnumerator GetHitCoroutine()

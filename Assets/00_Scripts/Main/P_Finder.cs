@@ -4,6 +4,8 @@ using UnityEngine;
 public class P_Finder : MonoBehaviour
 {
     [SerializeField] private float checkRadius = 5.0f;
+    [SerializeField] private float checkMonsterRadius = 10.0f;
+
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private LayerMask monsterLayer;
     [SerializeField] Canvas uiCanvas;
@@ -18,6 +20,7 @@ public class P_Finder : MonoBehaviour
     bool isAttack = false;
 
     private Transform closetObject;
+    public Transform monsterTarget;
 
     private void Start()
     {
@@ -58,22 +61,37 @@ public class P_Finder : MonoBehaviour
             return;
         }
 
-        Collider[] monsterObjects = Physics.OverlapSphere(transform.position, checkRadius, monsterLayer);
+        Collider[] monsterObjects = Physics.OverlapSphere(transform.position, checkMonsterRadius, monsterLayer);
         GetMonster = monsterObjects.Length > 0;
 
         if(GetMonster)
         {
-            if(Input.GetKeyDown(KeyCode.F))
+            monsterTarget = null;
+            float monsterClosetDistance = Mathf.Infinity;
+            foreach(Collider monster in monsterObjects)
             {
-                if (!isAttack)
+                float distance = Vector3.Distance(transform.position, monster.transform.position);
+                if(distance < monsterClosetDistance)
                 {
-                    AttackMonster(monsterObjects);
-                    P_Movement.instance.EquipmentChange(Object_Type.Monster, true);
+                    monsterClosetDistance = distance;
+                    monsterTarget = monster.transform;
                 }
             }
-            transform.LookAt(monsterObjects[0].transform);
-            closetObject = null;
-            IconInit();
+            if(monsterTarget != null)
+            {
+                if(Input.GetKeyDown(KeyCode.F))
+                {
+                    if (!isAttack)
+                    {
+                        AttackMonster(monsterObjects);
+                        P_Movement.instance.EquipmentChange(Object_Type.Monster, true);
+                    }
+                }
+                transform.LookAt(monsterTarget);
+                closetObject = null;
+                IconInit();
+            }
+            
             return;
         }
         P_Movement.instance.EquipmentChange(Object_Type.Monster, false);
@@ -122,12 +140,17 @@ public class P_Finder : MonoBehaviour
     private void AttackMonster(Collider[] monsters)
     {
         isAttack = true;
+        P_Movement.instance.AnimationWeight(1, 1);
         P_Movement.instance.AnimationChange("Attack");
         P_Movement.instance.colliders = monsters;
         Invoke("ReturnAttack", attack_speed);
     }
 
-    private void ReturnAttack() => isAttack = false;
+    private void ReturnAttack()
+    {
+        P_Movement.instance.AnimationWeight(1, 0);
+        isAttack = false;
+    }
 
     private void IconInit()
     {

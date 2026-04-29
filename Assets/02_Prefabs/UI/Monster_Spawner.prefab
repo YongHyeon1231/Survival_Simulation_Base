@@ -48,4 +48,5 @@ MonoBehaviour:
   minMonsters: 3
   maxMonsters: 5
   spawnRadius: 5
-  detectionRadius: 10
+  detectionRadius: 15
+  spawnedMonsters: []

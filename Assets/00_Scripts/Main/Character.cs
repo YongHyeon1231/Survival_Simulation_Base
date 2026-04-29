@@ -20,6 +20,11 @@ public class Character : MonoBehaviour
         HP = MaxHP;
     }
 
+    public void AnimationWeight(int layer, float value)
+    {
+        animator.SetLayerWeight(layer, value);
+    }
+
     public virtual void Hit()
     {
         if (m_Object == null) return;
@@ -39,6 +44,11 @@ public class Character : MonoBehaviour
         {
             colliders[i].GetComponent<Monster>().GetDamage(10);
         }
+    }
+
+    public virtual void Bullet()
+    {
+        
     }
 
     public void GetHitParticle()

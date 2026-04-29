@@ -25,6 +25,11 @@ public class P_Movement : Character
     private CharacterController controller;
     private P_Finder Finder;
 
+    public Bullet bulletObject;
+    public Transform bulletTransform;
+
+
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -46,6 +51,14 @@ public class P_Movement : Character
     {
         Delegate_Holder.OnInteraction -= ReturnCharacterMove;
         Delegate_Holder.OnInteractionOut -= () => animator.SetBool("NoneInteraction", false);
+    }
+
+    public override void Bullet()
+    {
+        base.Bullet();
+
+        var go = Instantiate(bulletObject, bulletTransform.position, Quaternion.identity);
+        go.Init(Finder.monsterTarget);
     }
 
     public void ReturnCharacterMove()
