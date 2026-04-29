@@ -46,6 +46,8 @@ public class Object_Mng : MonoBehaviour
     {
         int index = SetObjects.IndexOf(obj);
 
+        if(index < 0) return;
+
         SetObjects.RemoveAt(index);
 
         List<BoundingSphere> newSpheres = new List<BoundingSphere>(boundingSpheres);
