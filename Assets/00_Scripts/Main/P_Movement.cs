@@ -42,6 +42,12 @@ public class P_Movement : Character
         Delegate_Holder.OnInteractionOut += () => animator.SetBool("NoneInteraction", false);
     }
 
+    private void OnDestroy()
+    {
+        Delegate_Holder.OnInteraction -= ReturnCharacterMove;
+        Delegate_Holder.OnInteractionOut -= () => animator.SetBool("NoneInteraction", false);
+    }
+
     public void ReturnCharacterMove()
     {
         animator.SetBool("NoneInteraction", true);

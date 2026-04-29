@@ -9,6 +9,11 @@ public class Asset_Mng
 
     public static Sprite Get_Atlas(string temp)
     {
+        if(atlas == null)
+        {
+            Debug.LogError("Atlas 에셋을 찾을 수 없습니다. Resources/Atlas 경로를 확인하세요.");
+            return null;
+        }
         return atlas.GetSprite(temp);
     }
 }

@@ -23,8 +23,6 @@ public class Interaction_Hit :  M_Object
 
     public override void OnHit(Character character)
     {
-        base.OnHit(character);
-
         if (gameObject.activeInHierarchy) // 활성화 상태일 때만 흔들기
             ShakeTree(transform.position - P_Movement.instance.transform.position);
 
@@ -37,6 +35,8 @@ public class Interaction_Hit :  M_Object
                 go.Init(items[i]);
             }
         }
+
+        base.OnHit(character);
     }
 
     private void ShakeTree(Vector3 attackDirection)

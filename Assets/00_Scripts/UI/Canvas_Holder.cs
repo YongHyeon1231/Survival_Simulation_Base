@@ -67,6 +67,12 @@ public class Canvas_Holder : MonoBehaviour
         Delegate_Holder.OnStamina += StaminaCheck;
         Delegate_Holder.OnHP += HPCheck;
     }
+    private void OnDestroy()
+    {
+        Delegate_Holder.OnInteractionOut -= BoardOut;
+        Delegate_Holder.OnStamina -= StaminaCheck;
+        Delegate_Holder.OnHP -= HPCheck;
+    }
 
     private void Update()
     {
@@ -201,6 +207,12 @@ public class Canvas_Holder : MonoBehaviour
 
     IEnumerator FillCoroutine()
     {
+        if(BoardHpWhiteFill.fillAmount < BoardHpFill.fillAmount)
+        {
+            BoardHpWhiteFill.fillAmount = BoardHpFill.fillAmount;
+            yield break;
+        }
+
         while(BoardHpWhiteFill.fillAmount - BoardHpFill.fillAmount > 0.001f)
         {
             BoardHpWhiteFill.fillAmount = 

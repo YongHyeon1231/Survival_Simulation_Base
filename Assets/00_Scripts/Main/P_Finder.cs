@@ -25,6 +25,12 @@ public class P_Finder : MonoBehaviour
         Delegate_Holder.OnInteractionOut += OnInteractionOut;
     }
 
+    private void OnDestroy()
+    {
+        Delegate_Holder.OnInteraction -= OnInteractionVoid;
+        Delegate_Holder.OnInteractionOut -= OnInteractionOut;
+    }
+
     private void OnInteractionVoid()
     {
         OnInteraction = true;
