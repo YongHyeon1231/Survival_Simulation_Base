@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 
-public class Utils : MonoBehaviour
+public static class Utils
 {
     public static string Localization_text(String_Table table, string key)
     {

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Object_Mng : MonoBehaviour
 {
     private CullingGroup cullingGroup;
     private BoundingSphere[] boundingSpheres;
+    public GameObject MonsterSpawner;
     private List<GameObject> SetObjects = new List<GameObject>();
 
     public float cullingGroupRadius = 5.0f;
@@ -14,6 +16,7 @@ public class Object_Mng : MonoBehaviour
     public int Maximum;
     public Transform ObjectParentTransform;
     private Object_Scriptable[] m_Datas;
+    public float checkRadius;
 
     private void Start()
     {
@@ -86,7 +89,7 @@ public class Object_Mng : MonoBehaviour
             Vector3 pos;
             MakePos(out pos);
 
-            while(Vector3.Distance(pos, Vector3.zero) <= CenterLimitValue) 
+            while(Vector3.Distance(pos, Vector3.zero) <= CenterLimitValue || IsPositionOverlapping(pos, checkRadius)) 
             {
                 MakePos(out pos);
             }
@@ -104,7 +107,37 @@ public class Object_Mng : MonoBehaviour
 
             yield return null;
         }
+
+        for (int i = 0; i < 10; i++)
+        {
+            Vector3 pos;
+            MakePos(out pos);
+
+            while(Vector3.Distance(pos, Vector3.zero) <= CenterLimitValue) 
+            {
+                MakePos(out pos);
+            }
+            
+            var go = Instantiate(MonsterSpawner,
+                    new Vector3(pos.x, MonsterSpawner.transform.position.y, pos.z),
+                    Quaternion.identity);
+
+            yield return null;
+        }
+
         MakeCulling();
+    }
+
+    private bool IsPositionOverlapping(Vector3 position, float chgeckRadius)
+    {
+        foreach(GameObject obj in SetObjects)
+        {
+            if(Vector3.Distance(obj.transform.position, position) < checkRadius)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void MakePos(out Vector3 pos)

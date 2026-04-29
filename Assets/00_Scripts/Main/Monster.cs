@@ -17,10 +17,12 @@ public class Monster : MonoBehaviour
     Renderer renderer;
     Animator animator;
 
-    Transform target;
+    Transform m_Target;
 
     bool isAttack = false;
     bool isDead = false;
+    Vector3 myPos;
+    Monster_Spawner parentSpawner;
 
     private void Start()
     {
@@ -28,9 +30,9 @@ public class Monster : MonoBehaviour
         animator = GetComponent<Animator>();
         HP = MaxHP;
         renderer = transform.GetComponentInChildren<Renderer>();
+        myPos = transform.position;
 
         AnimationChange("IDLE", false);
-        StartCoroutine(FindPlayer());
     }
 
     private void AnimationChange(string temp, bool isTrigger = false)
@@ -48,6 +50,11 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public void Init(Monster_Spawner spawner)
+    {
+        parentSpawner = spawner;
+    }
+
     private void Attack()
     {
         P_Movement.instance.GetDamage(15);
@@ -56,22 +63,19 @@ public class Monster : MonoBehaviour
     private void Update()
     {
         if (isDead) return;
-        if (target == null) return;
-
-        float distance = Vector3.Distance(target.position, transform.position);
-
-        if(distance > 2.0f && distance <= 10.0f)
+        if (m_Target == null)
         {
-            StopMovement(false);
-
-            if(!animator.GetBool("WALK"))
+            if(agent.remainingDistance <= 2.0f)
             {
-                AnimationChange("WALK", false);
+                StopMovement(true);
+                AnimationChange("IDLE", false);
             }
-
-            agent.SetDestination(target.position);
+            return;
         }
-        else if (distance < 2.0f)
+
+        float distance = Vector3.Distance(m_Target.position, transform.position);
+
+        if (distance < 2.0f)
         {
             StopMovement(true);
 
@@ -80,11 +84,11 @@ public class Monster : MonoBehaviour
                 AttackPlayer();
             }
         }
-        else if (distance > 10.0f)
+        else
         {
             StopMovement(false);
             AnimationChange("WALK", false);
-            target = null;
+            agent.SetDestination(m_Target.position);
         }
     }
 
@@ -104,25 +108,18 @@ public class Monster : MonoBehaviour
         Invoke("AttackReturn", 1.0f);
     }
 
-    IEnumerator FindPlayer()
+    public void GetPlayer(Transform target)
     {
-        float distance = Vector3.Distance(transform.position, P_Movement.instance.transform.position);
-        if (target == null)
-        {
-            if(!animator.GetBool("IDLE"))
-            {
-                AnimationChange("IDLE", false);
-            }
+        m_Target = target;
+        AnimationChange("WALK", false);
+    }
 
-            if (distance <= 5.0f)
-            {
-                target = P_Movement.instance.transform;
-                AnimationChange("WALK", false);
-            }
-        }
-
-        yield return new WaitForSeconds(1.0f);
-        StartCoroutine(FindPlayer());
+    public void RemovePlayer()
+    {
+        m_Target = null;
+        StopMovement(false);
+        AnimationChange("WALK", false);
+        agent.SetDestination(myPos);
     }
 
     private void AttackReturn() => isAttack = false;
@@ -147,6 +144,7 @@ public class Monster : MonoBehaviour
                 isDead = true;
                 StopAllCoroutines();
                 StopMovement(true);
+                parentSpawner.spawnedMonsters.Remove(this);
                 Canvas_Holder.instance.RemoveSlider(this);
                 this.gameObject.layer = LayerMask.NameToLayer("Default");
                 AnimationChange("DIE", true);

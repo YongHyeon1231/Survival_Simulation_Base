@@ -27,6 +27,8 @@ public class M_Object : MonoBehaviour
     {
         character.m_Object = this;
         GetInteraction = true;
+        if (character.MainPlayer)
+            Canvas_Holder.instance.BoardHpWhiteFill.fillAmount = (float)HP / m_Data.HP;
     }
 
     public virtual void OnHit(Character character)

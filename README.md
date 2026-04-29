@@ -31,7 +31,7 @@
 | `Delegate_Holder.cs` | MonoBehaviour | static 이벤트 버스 |
 | `Asset_Mng.cs` | 순수 C# | SpriteAtlas / Building ScriptableObject 정적 로더 |
 | `ItemFlowController.cs` | 순수 C# | 확률 기반 드롭 + 인벤토리 Dictionary 관리 |
-| `Utils.cs` | 순수 C# | Localization, 타이머, 레이어 변경 유틸 |
+| `Utils.cs` | static 클래스 | Localization, 타이머, 레이어 변경 유틸 |
 | `Enum_Holder.cs` | — | enum 정의 |
 | **Building/** | | |
 | `Building_OBJ.cs` | MonoBehaviour | 건물 상태 관리 (투명→불투명, 진행바, 완료 이펙트) |
@@ -49,6 +49,71 @@
 | `UIPART.cs` | MonoBehaviour ★ | UI 패널 베이스 — Open / Close / Toggle |
 | `INVENTORY.cs` `BUILDING.cs` `PORTAL.cs` | UIPART 상속 | 인벤토리 / 건설 / 포탈 패널 |
 | `Particle_Handler.cs` | MonoBehaviour · 싱글턴 | 오브젝트 파괴 파티클 재생 |
+
+<details>
+<summary>클래스 스켈레톤 구조</summary>
+
+```
+MonoBehaviour
+│
+├── [Main]
+│   ├── Character ★
+│   │   ├── P_Movement          싱글턴 · 플레이어 이동/데미지
+│   │   └── Worker              NavMesh 채집 유닛
+│   ├── M_Object ★
+│   │   ├── Interaction_Hit     채집 오브젝트 (흔들림/드롭)
+│   │   ├── BonFire             모닥불 (스태미나 회복)
+│   │   └── Portal              Worker 소환 포탈
+│   ├── Monster                 NavMesh 추적/전투
+│   ├── Monster_Spawner         몬스터 스폰
+│   ├── Item                    드롭 아이템 분산→흡착
+│   ├── P_Finder                범위 탐지 / F키 상호작용
+│   └── Cam_Movement            싱글턴 · Lerp 추적 + 쉐이크
+│
+├── [Manager]
+│   ├── Base_Mng                싱글턴
+│   │   ├── (자식) Game_Mng     스태미나
+│   │   ├── (자식) Building_Mng 건물 배치
+│   │   └── (자식) Object_Mng   스폰 + CullingGroup
+│   └── Delegate_Holder         static 이벤트 버스
+│
+├── [Building]
+│   └── Building_OBJ            건물 상태 (투명→불투명, 진행바)
+│
+└── [UI]
+    ├── Canvas_Holder           싱글턴 · HP바/슬라이더/패널/데미지텍스트
+    ├── Directional_Monster_Slider  몬스터 HP바 개별 인스턴스
+    ├── UIPART ★
+    │   ├── INVENTORY
+    │   ├── BUILDING
+    │   └── PORTAL
+    ├── CompassBar              방위 나침반 + 마커
+    ├── Navigation_Mng          화면 하단 알림
+    ├── UI_Animation_Handler    애니메이션 상태 전환
+    ├── Particle_Handler        싱글턴 · 파괴 파티클
+    ├── PopUP_Description       오브젝트 설명 팝업
+    ├── Building_Panel          건설 패널 아이템
+    ├── Unit_Panel              유닛 패널 아이템
+    ├── Item_Panel              인벤토리 아이템
+    └── Nav_Item                알림 아이템
+
+ScriptableObject
+├── Scriptable_Base ★
+│   ├── Item_Scriptable
+│   ├── Building_Scriptable
+│   └── Unit_Scriptable
+└── Object_Scriptable           (Scriptable_Base 미상속)
+
+static / 순수 C#
+├── Asset_Mng                   SpriteAtlas / Building 정적 로더
+├── ItemFlowController          확률 드롭 + 인벤토리 Dictionary
+├── Utils                       유틸 (Localization, 타이머, 레이어)
+└── Enum_Holder                 enum 정의
+
+★ = 베이스 클래스
+```
+
+</details>
 
 ---
 
