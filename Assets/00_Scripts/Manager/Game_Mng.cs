@@ -4,9 +4,11 @@ using UnityEngine;
 public class Game_Mng : MonoBehaviour
 {
     public int Stamina, MaxStamina;
+    [SerializeField] private Texture2D cursorTexture;
 
     private void Start()
     {
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
         Stamina = MaxStamina;
         StartCoroutine(DelayStaina());
     }

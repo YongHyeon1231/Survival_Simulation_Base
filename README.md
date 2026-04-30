@@ -96,57 +96,15 @@
 
 ## 📌 주요 기능
 
-### 플레이어 / 전투
-
-- 이동, 회전, 상호작용 입력 처리 (`P_Movement`, `P_Finder`)
-- 애니메이션 이벤트 기반 타격 판정 (`Character.Hit`, `Character.Attack`)
-- 카메라 Lerp 추적 + 피격 셰이크 (`Cam_Movement`)
-
-### 자원 채집 시스템
-
-- 오브젝트 HP·드롭 테이블을 ScriptableObject로 데이터화 (`Object_Scriptable`)
-- 타격 시 나무 흔들림 연출 + 확률 드롭 (`Interaction_Hit`, `ItemFlowController`)
-- 드롭 아이템 분산→플레이어 흡착→자동 파괴 (`Item`)
-
-### Worker AI 유닛
-
-- NavMesh 기반 자율 채집 유닛 (`Worker`)
-- 나침반 마커 연동으로 위치 시각화 (`CompassBar`)
-
-### 건물 건설 시스템
-
-- Raycast 기반 배치 이동, 회전, 확정 (`Building_Mng`)
-- 건설 중 투명→불투명 전환, 진행바, 완료 이펙트 (`Building_OBJ`)
-- 재료 소모 및 건물 데이터 ScriptableObject화 (`Building_Scriptable`)
-
-### 날씨 / 주야 시스템
-
-- 태양 회전·색상 변화 기반 24시간 주야 사이클 (`Wheather_Mng`)
-- 비(Rain ParticleSystem) 강도 및 바람(Shader Wind) 세기 실시간 제어
-- Delegate 이벤트 버스로 날씨 상태 전파 (`Delegate_Holder`)
-
-### 몬스터 AI
-
-- 1초 주기 플레이어 탐지 → NavMesh 추격 → 근접 공격 (`Monster`)
-- 피격 Emission 이펙트, HP바 자동 생성/제거 (`Canvas_Holder`)
-
-### UI / HUD
-
-- HP바, 몬스터 슬라이더, 데미지 텍스트, 나침반 마커 (`Canvas_Holder`, `CompassBar`)
-- 인벤토리, 건설, 포탈 패널 (UIPART 상속 구조)
-- 화면 하단 아이템 획득·건설 완료 알림 (`Navigation_Mng`)
-
-### 다국어 지원 (Localization)
-
-- Unity Localization 패키지 기반 한국어/영어 다국어 처리 (`Utils.Localization_text`)
-- `String_Table` enum으로 테이블 분류 관리 (Item / Building / UI / Unit / Object)
-- 채집 오브젝트 상호작용 시 Board에 오브젝트 이름·설명 현지화 텍스트 출력
-- 포탈 UI의 유닛 이름·대사, 건설 UI의 아이템 이름 전부 Localization 키 기반으로 표시
-
-### 성능 최적화
-
-- CullingGroup 기반 오브젝트 가시성 관리 (`Object_Mng`)
-- static 이벤트 버스로 컴포넌트 간 의존성 분리 (`Delegate_Holder`)
+- **플레이어** — 이동/회전/근접·원거리 공격, 카메라 추적
+- **자원 채집** — 오브젝트 타격 → 확률 드롭 → 자동 인벤토리 수납
+- **건물 건설** — 마우스 배치, 휠로 방향 설정, 재료 소모, 건설 연출
+- **Worker AI** — NavMesh 자율 채집 유닛, 나침반 마커 표시
+- **몬스터 AI** — 플레이어 탐지·추격·공격, 사망 처리
+- **날씨 / 주야** — 24시간 주야 사이클, 비·바람 실시간 제어
+- **UI / HUD** — HP바, 인벤토리, 건설·포탈 패널, 알림
+- **다국어** — 한국어/영어 Localization
+- **성능** — CullingGroup 가시성 관리, 이벤트 버스 의존성 분리
 
 ---
 
