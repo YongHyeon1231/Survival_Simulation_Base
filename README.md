@@ -6,6 +6,7 @@
 - **개발 기간:** 2026.04 ~
 - **게임 장르:** 서바이벌 / 시뮬레이션
 - **프로젝트 소개:** 자원을 채집하고 건물을 건설하며 생존하는 Unity 기반 싱글플레이 서바이벌 시뮬레이션입니다. NavMesh 기반 AI 유닛, 확률 드롭 인벤토리, 실시간 날씨/주야 시스템을 포함합니다.
+- **프로젝트 목표:** 서바이벌 장르에 RTS 요소가 결합된 사례가 부족하다는 점에 착안하여, 자원 수급과 생존 중심 구조에 기지 건설 및 유닛 생산 시스템을 결합한 게임을 기획·개발하였습니다. 특히 스타크래프트의 프로토스 생산 방식을 참고해 게이트 기반 유닛 소환 구조를 구현했으며, 핵심 게임 루프 중심의 프로토타입을 제작했습니다.
 
 ---
 
@@ -252,3 +253,136 @@ Wheather_Mng
 |------|------|
 | Terrain | [Idyllic Fantasy Nature](https://assetstore.unity.com/packages/p/idyllic-fantasy-nature-260042) |
 | Particle | [Cartoon FX Remaster Free](https://assetstore.unity.com/packages/p/cartoon-fx-remaster-free-109565) |
+
+---
+
+## 🔧 아쉬운 점 및 개선 방향 - 수정 예정
+
+<details>
+<summary>1. 중앙 관리 시스템을 초반부터 설계하지 못한 점</summary>
+
+**현재 문제**
+`Base_Mng`, `Canvas_Holder`, `Delegate_Holder` 등 매니저 구조를 개발 중후반에 도입하면서 리팩토링이 미완성된 상태로 남았다. 일부 컴포넌트는 여전히 `FindObjectOfType` 또는 직접 참조로 다른 시스템에 접근하고 있어 의존성이 혼재한다.
+
+**개선 방안**
+- 초기 설계 단계에서 GameManager → SubManager 계층 구조와 Delegate 이벤트 버스를 확정하고 시작
+- 모든 컴포넌트 간 통신은 `Delegate_Holder`의 이벤트를 통해서만 진행하도록 규칙화
+- `FindObjectOfType` 사용을 전면 금지하고 싱글턴 또는 DI(의존성 주입)로 대체
+
+</details>
+
+<details>
+<summary>2. 맵 경계 방벽 미설치로 인한 플레이 불편</summary>
+
+**현재 문제**
+맵 끝에 물리적 장벽이 없어 플레이어와 Worker, 몬스터가 맵 밖으로 이탈할 수 있다. NavMesh 범위 밖에서 에이전트가 멈추거나 예외 동작을 일으키는 원인이 되기도 한다.
+
+**개선 방안**
+- 맵 외곽에 Invisible Wall(투명 Collider) 배치 또는 Terrain 높이 기반 경계 설정
+- NavMesh 베이크 범위를 맵 내부로 한정해 에이전트의 이탈 자체를 원천 차단
+- 카메라에도 경계 클램프를 적용해 시야가 맵 밖으로 나가지 않도록 처리
+
+</details>
+
+<details>
+<summary>3. Occlusion Culling으로 인한 오브젝트 비활성화 버그</summary>
+
+**현재 문제**
+`Object_Mng`의 CullingGroup이 플레이어 기준으로 가시성을 판단하기 때문에, AI(Worker, Monster)가 채집 오브젝트를 공격하는 도중 플레이어가 멀어지면 해당 오브젝트가 비활성화(`SetActive(false)`)되어 AI가 공격 중인 대상이 사라지는 버그가 발생한다.
+
+**개선 방안**
+- CullingGroup 비활성화 기준에 "현재 AI가 상호작용 중인 오브젝트" 예외 처리 추가
+- `M_Object`에 `isOccupied` 플래그를 두고, 활성 상태인 오브젝트는 컬링 대상에서 제외
+- 또는 오브젝트를 완전히 파괴하는 대신 렌더러만 끄고 Collider는 유지하는 방식으로 전환
+
+</details>
+
+<details>
+<summary>4. 인벤토리 아이템 재배치 불가</summary>
+
+**현재 문제**
+인벤토리는 획득 순서대로 고정 슬롯에 표시되며, 아이템 간 위치 교체(드래그 앤 드롭)나 슬롯 선택 기능이 없다. 실질적인 인벤토리 조작이 불가능해 플레이어 경험이 크게 떨어진다.
+
+**개선 방안**
+- `IBeginDragHandler`, `IDragHandler`, `IEndDropHandler` 인터페이스를 활용한 Unity UI 드래그 앤 드롭 구현
+- 슬롯 인덱스 기반으로 아이템 Dictionary를 재정렬하는 `SwapItem(int from, int to)` 메서드 추가
+- 장기적으로 핫바(단축 슬롯) 분리 및 아이템 사용/버리기 기능으로 확장
+
+</details>
+
+<details>
+<summary>5. SOLID 원칙 미준수로 인한 스크립트 복잡도 문제</summary>
+
+**현재 문제**
+- **SRP 위반:** `Canvas_Holder`가 HP바, 몬스터 슬라이더, 데미지 텍스트, 패널 토글을 모두 담당. 하나의 클래스가 너무 많은 역할을 맡아 수정 시 영향 범위가 넓다.
+- **OCP 위반:** 새 건물/오브젝트 타입 추가 시 `switch-case` 또는 `if-else` 분기를 직접 수정해야 하는 구조.
+- **DIP 위반:** 일부 컴포넌트가 구체 클래스(`P_Movement`, `Canvas_Holder`)를 직접 참조해 테스트 및 교체가 어렵다.
+
+**개선 방안**
+- `Canvas_Holder`를 `HpBarController`, `DamageTextController`, `PanelController` 등으로 역할별 분리
+- 오브젝트/건물 동작은 `ScriptableObject` + 전략 패턴(Strategy Pattern)으로 확장 가능하게 설계
+- 핵심 시스템은 인터페이스(`IDamageable`, `IInteractable`)를 정의하고 구체 클래스 대신 인터페이스에 의존
+
+</details>
+
+<details>
+<summary>6. 오브젝트 풀링 미적용 (잦은 Instantiate/Destroy)</summary>
+
+**현재 문제**
+드롭 아이템, 파티클, 몬스터 HP 슬라이더, 알림 패널 등이 매번 `Instantiate`/`Destroy`로 처리된다. 오브젝트가 많아질수록 GC 호출이 빈번해져 프레임 드롭의 원인이 된다.
+
+**개선 방안**
+- Unity `ObjectPool<T>` (2021 LTS 이상) 또는 커스텀 오브젝트 풀 구현
+- `Item`, `Nav_Item`, `Directional_Monster_Slider` 처럼 반복 생성/소멸되는 오브젝트를 우선 대상으로 풀링 적용
+
+</details>
+
+<details>
+<summary>7. 플레이어 사망 처리 미구현</summary>
+
+**현재 문제**
+`P_Movement.GetDamage()`는 HP를 차감만 하고 HP ≤ 0에 대한 처리가 없다. 몬스터에게 계속 맞아도 게임이 끝나지 않으며, 게임 오버/리스폰 로직 자체가 부재하다.
+
+**개선 방안**
+- `GetDamage()`에 `HP <= 0` 분기 추가 후 `Delegate_Holder`를 통해 GameOver 이벤트 발행
+- `Game_Mng`에서 구독하여 씬 재로드 또는 리스폰 처리
+- UI에 게임 오버 패널 연동
+
+</details>
+
+<details>
+<summary>8. AI 상태 관리 비구조화 (FSM 미도입)</summary>
+
+**현재 문제**
+`Monster`와 `Worker`의 상태 전환(IDLE → WALK → ATTACK 등)이 `Update()` 내 `if-else` 분기로 처리된다. 상태가 추가될수록 분기가 중첩되어 가독성과 유지보수성이 급격히 낮아진다.
+
+**개선 방안**
+- State 패턴 기반 FSM(Finite State Machine) 도입: `IState` 인터페이스 + 상태별 클래스 분리
+- Unity `Animator`의 StateMachineBehaviour를 활용해 애니메이션 전환과 게임 로직 상태를 일치시키는 방법도 고려
+
+</details>
+
+<details>
+<summary>9. 하드코딩된 매직 넘버 다수</summary>
+
+**현재 문제**
+`Monster`의 탐지 거리(`5.0f`), 공격 범위(`2.0f`), 추격 포기 거리(`10.0f`), 공격 쿨타임(`1.0f`), 아이템 흡착 거리(`0.5f`) 등이 코드 내에 리터럴로 산재해 있다. 밸런스 조정 시 소스 코드를 직접 수정해야 한다.
+
+**개선 방안**
+- 수치 데이터를 `ScriptableObject`로 분리하거나 `SerializeField`로 Inspector 노출
+- 최소한 클래스 상단에 `const`/`readonly` 상수로 명명하여 의미를 명확히 하고 한 곳에서 관리
+
+</details>
+
+<details>
+<summary>10. 저장/불러오기 시스템 부재</summary>
+
+**현재 문제**
+게임을 종료하면 인벤토리, 건물 배치, 플레이어 HP 등 모든 진행 상황이 초기화된다. 서바이벌 장르의 핵심 플레이 루프인 "진행 축적"이 동작하지 않는다.
+
+**개선 방안**
+- `PlayerPrefs`(간단) 또는 JSON 직렬화 + `Application.persistentDataPath` 저장(확장성)
+- 저장 대상: 인벤토리 Dictionary, 건물 배치 리스트, 플레이어 스탯
+- `SaveManager` 단일 클래스에서 저장/불러오기를 중앙 관리
+
+</details>
