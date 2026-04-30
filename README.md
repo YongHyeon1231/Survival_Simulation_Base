@@ -26,6 +26,74 @@
 
 ---
 
+<details>
+<summary>✅ 구현된 기능 전체 목록</summary>
+
+### 플레이어
+- WASD 이동 (카메라 기준 방향), 중력/낙하 처리
+- 마우스 방향으로 캐릭터 회전 (Raycast + Slerp)
+- 근접 공격 (애니메이션 이벤트 기반 타격 판정)
+- 원거리 공격 — 투사체(Bullet) 발사, 범위 폭발 데미지
+- 피격 시 데미지 텍스트 표시, HP 감소
+- 상호작용 중 다른 키 입력 시 상호작용 해제
+- UI 열려있을 때 이동 차단
+- ESC 키로 앱 종료
+
+### 스태미나
+- 최대 스태미나 보유, 모닥불 상호작용으로 회복
+
+### 채집 오브젝트
+- HP/드롭 테이블 ScriptableObject 데이터화
+- 타격 시 나무 흔들림 연출
+- 확률 드롭 아이템 생성 → 분산 → 플레이어 흡착 → 자동 파괴
+- Board에 오브젝트 이름/설명 현지화 텍스트 출력
+
+### 건물 건설
+- Raycast 기반 배치 위치 이동, 스크롤로 회전
+- 투명→불투명 머티리얼 전환
+- 건설 진행바 + 완료 이펙트
+- 재료 아이템 소모 후 확정
+
+### 건물 종류
+- **모닥불(BonFire)** — 상호작용 시 앉기 애니메이션 + 1초마다 스태미나 +10 회복
+- **포탈(Portal)** — 상호작용 시 UI 오픈, Worker 유닛 소환 및 Waypoint로 이동
+
+### Worker AI 유닛
+- NavMesh 기반 자율 이동
+- 반경 내 채집 오브젝트 탐색 → 이동 → 채집 자동 수행
+- 상태 머신: IDLE / MOVE / Arrived / Interaction
+- 나침반 마커 자동 등록
+
+### 몬스터 AI
+- 플레이어 탐지 → NavMesh 추격 → 거리 2 이내 근접 공격 (15 데미지)
+- 플레이어 벗어나면 원래 위치로 귀환
+- 피격 시 Emission 이펙트 (흰→검 깜빡임)
+- HP ≤ 0: 파티클 생성, HP 슬라이더 제거, DIE 애니메이션 → 1.5초 후 파괴
+- 스포너와 연동하여 스폰 목록 관리
+
+### 날씨 / 주야
+- 24시간 주야 사이클 (태양 회전 + Gradient 색상 변화)
+- 비(Rain ParticleSystem) 강도 실시간 제어
+- 바람(Shader Wind) 세기 실시간 제어
+
+### UI / HUD
+- HP바, 몬스터 방향 슬라이더, 데미지 텍스트 팝업
+- 나침반 마커 (Worker 위치 표시)
+- 인벤토리, 건설, 포탈 패널 (UIPART 상속 구조)
+- 화면 하단 아이템 획득 / 건설 완료 알림
+
+### 다국어 지원
+- 한국어/영어 Localization (Unity Localization 패키지)
+- String_Table enum으로 Item / Building / UI / Unit / Object 분류
+
+### 성능 최적화
+- CullingGroup 기반 오브젝트 가시성 관리
+- static 이벤트 버스(`Delegate_Holder`)로 컴포넌트 간 의존성 분리
+
+</details>
+
+---
+
 ## 📌 주요 기능
 
 ### 플레이어 / 전투
@@ -251,6 +319,12 @@ Wheather_Mng
 | 이름   | 블로그 | GitHub |
 |--------|--------|--------|
 | 박용현 | [dydgustmdfl1231 Blog](https://dydgustmdfl1231.tistory.com/) | [YongHyeon1231](https://github.com/YongHyeon1231/) |
+
+## 📋 기획자
+
+| 이름   | 블로그 | GitHub |
+|--------|--------|--------|
+| 박영재 | [tptkdrlghlr Blog](https://tptkdrlghlr.tistory.com/) | |
 
 ---
 
