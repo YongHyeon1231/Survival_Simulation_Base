@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class Game_Mng : MonoBehaviour
@@ -10,6 +9,12 @@ public class Game_Mng : MonoBehaviour
     {
         Stamina = MaxStamina;
         StartCoroutine(DelayStaina());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
     }
 
     IEnumerator DelayStaina()
