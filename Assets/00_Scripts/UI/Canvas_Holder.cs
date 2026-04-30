@@ -10,6 +10,8 @@ public class Canvas_Holder : MonoBehaviour
 
     [SerializeField] private Transform UI_PART_PARENT;
     [SerializeField] private GameObject Board;
+    [SerializeField] private TextMeshProUGUI BoardNameText;
+    [SerializeField] private TextMeshProUGUI BoardDescText;
     public Image BoardHpFill, BoardHpWhiteFill;
     [SerializeField] private TextMeshProUGUI StaminaText;
     [SerializeField] private TextMeshProUGUI HPText;
@@ -183,15 +185,21 @@ public class Canvas_Holder : MonoBehaviour
         }
     }
 
-    public void GetBoard()
+    public void GetBoard(string nameKey = null)
     {
         Board.SetActive(true);
-        // BoardHpFill.fillAmount = 1.0f;
-        // BoardHpWhiteFill.fillAmount = 1.0f;
-        // 해당 코드가 있으면 오브젝트에 접근할때 남아있는 체력바가 처음에 최대치로 채워져 있는 것처럼 보임.
+        if (nameKey == null) return;
+
+        BoardNameText.text = Utils.Localization_text(String_Table.Object, nameKey);
+        BoardDescText.text  = Utils.Localization_text(String_Table.Object, nameKey + ".Value");
     }
 
-    public void BoardOut() => Board.GetComponent<UI_Animation_Handler>().AnimationChange("Out");
+    public void BoardOut()
+    {
+        Board.GetComponent<UI_Animation_Handler>().AnimationChange("Out");
+        if (BoardNameText != null) BoardNameText.text = string.Empty;
+        if (BoardDescText  != null) BoardDescText.text  = string.Empty;
+    }
 
     public void AllStopCoroutine() => StopAllCoroutines();
 

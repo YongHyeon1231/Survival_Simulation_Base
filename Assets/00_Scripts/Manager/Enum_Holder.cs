@@ -3,7 +3,8 @@ public enum String_Table
     Item,
     Building,
     UI,
-    Unit
+    Unit,
+    Object
 }
 
 public enum Build_Type

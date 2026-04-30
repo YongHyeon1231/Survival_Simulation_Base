@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Object_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 0bd5468e433af514eb6b35b87dc06762, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 11368243200
+    m_Localized: Blue Tree
+    m_Metadata:
+      m_Items: []
+  - m_Id: 282819403776
+    m_Localized: Green Tree
+    m_Metadata:
+      m_Items: []
+  - m_Id: 309709086720
+    m_Localized: Purple Tree
+    m_Metadata:
+      m_Items: []
+  - m_Id: 314146660352
+    m_Localized: Red Tree
+    m_Metadata:
+      m_Items: []
+  - m_Id: 713331154944
+    m_Localized: Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731190501376
+    m_Localized: Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 734411726848
+    m_Localized: Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 918948519936
+    m_Localized: Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 925835567104
+    m_Localized: Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 928339566592
+    m_Localized: Stone
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

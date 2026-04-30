@@ -19,6 +19,8 @@ public class Interaction_Hit :  M_Object
         base.Interaction(character);
         character.AnimationChange(m_Data.m_Type.ToString());
         character.EquipmentChange(m_Data.m_Type, true);
+        if (character.MainPlayer)
+            Canvas_Holder.instance.GetBoard(m_Data.Name);
     }
 
     public override void OnHit(Character character)

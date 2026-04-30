@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Purple_Tree
   m_EditorClassIdentifier: Assembly-CSharp::Object_Scriptable
   m_Type: 1
-  Name: "\uBCF4\uB77C\uB098\uBB34"
+  Name: Purple_Tree
   HP: 100
   obj: {fileID: 6693999013657980860, guid: c6cb8ed45e050b54782895786e33525b, type: 3}
   Drop_Items:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rock_03
   m_EditorClassIdentifier: Assembly-CSharp::Object_Scriptable
   m_Type: 2
-  Name: "\uBC14\uC704"
+  Name: Rock_03
   HP: 100
   obj: {fileID: 4913323870007251058, guid: 5c03b0729eb17284a8cb4b6ae0c41fbe, type: 3}
   Drop_Items:

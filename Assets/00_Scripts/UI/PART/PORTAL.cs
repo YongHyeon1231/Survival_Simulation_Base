@@ -28,6 +28,20 @@ public class PORTAL : UIPART
     public void Init(Portal portal)
     {
         m_Portal = portal;
+        ResetUI();
+    }
+
+    private void ResetUI()
+    {
+        Data = null;
+        MainSetActive(false);
+
+        for (int i = 0; i < panels.Length; i++)
+            panels[i].transform.GetChild(0).gameObject.SetActive(false);
+
+        for (int i = 0; i < Garvage.Count; i++)
+            Destroy(Garvage[i]);
+        Garvage.Clear();
     }
 
     public void SetBuildObject()

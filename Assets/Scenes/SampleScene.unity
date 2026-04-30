@@ -5395,6 +5395,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Canvas_Holder
   UI_PART_PARENT: {fileID: 186481423}
   Board: {fileID: 288922653}
+  BoardNameText: {fileID: 1891292693}
+  BoardDescText: {fileID: 1741286607}
   BoardHpFill: {fileID: 738496085}
   BoardHpWhiteFill: {fileID: 1083918453}
   StaminaText: {fileID: 1318973670}

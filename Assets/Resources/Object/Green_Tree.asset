@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Green_Tree
   m_EditorClassIdentifier: Assembly-CSharp::Object_Scriptable
   m_Type: 1
-  Name: "\uCD08\uB85D\uB098\uBB34"
+  Name: Green_Tree
   HP: 100
   obj: {fileID: 1047009809111884668, guid: 4a9a9834102ca74468aac854347b7e42, type: 3}
   Drop_Items:
