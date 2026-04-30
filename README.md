@@ -68,6 +68,13 @@
 - 인벤토리, 건설, 포탈 패널 (UIPART 상속 구조)
 - 화면 하단 아이템 획득·건설 완료 알림 (`Navigation_Mng`)
 
+### 다국어 지원 (Localization)
+
+- Unity Localization 패키지 기반 한국어/영어 다국어 처리 (`Utils.Localization_text`)
+- `String_Table` enum으로 테이블 분류 관리 (Item / Building / UI / Unit / Object)
+- 채집 오브젝트 상호작용 시 Board에 오브젝트 이름·설명 현지화 텍스트 출력
+- 포탈 UI의 유닛 이름·대사, 건설 UI의 아이템 이름 전부 Localization 키 기반으로 표시
+
 ### 성능 최적화
 
 - CullingGroup 기반 오브젝트 가시성 관리 (`Object_Mng`)
